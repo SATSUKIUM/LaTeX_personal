@@ -16,37 +16,63 @@ left=20truemm,right=20truemm]{geometry}
 \begin{center}
 {\gt \Large J-PARC チャームバリオン分光実験のためのリアルタイム事象識別プロセス の開発と評価 }\\[14pt]
 
-{\gt \large 日本科技大$^A$ 帝都大理工$^B$ \\ 止田次郎$^A$, 潟川　学$^B$}\\[5pt]
+{\gt \large 阪大RCNP, KEK$^A$, 東大CNS$^B$ \\ 加島駿一, 白鳥昂太郎, 野海博之, 五十嵐洋一$^A$, 郡司卓$^B$, 鈴木謙, 本多良
+太郎$^A$, 他T103 コラボレーション, 他SPADI Alliance}\\[5pt]
 
-{\large \bf How to Write an Abstract for the JPS Meeting}\\[5pt]
+% {\gt \large 日本科技大$^A$ 帝都大理工$^B$ \\ 止田次郎$^A$, 潟川　学$^B$}\\[5pt]
 
-{\large \it $^A$Dept. of Phys., Teito Univ. $^B$Dept. of Phys, Nihon Univ. of Tech.}\\
+{\large \bf Development and evaluation of a real-time event identification
+process for the J-PARC charmed baryon spectroscopy experiment}\\[5pt]
 
-{\large \bf J. Tomeda$^A$ and M. Gatagawa$^B$}
+{\large \it RCNP, KEK$^A$, CNS$^B$}\\
+
+{\large \bf S. Kashima, K. Shirotori, H. Noumi, Y. Igarashi$^A$, T. Gunji$^B$, K.
+Suzuki, R. Honda$^A$, for T103 Collaboration, and for SPADI Alliance}\\
+
 \end{center}
 
 \vspace{10pt}
+% {\large \it $^A$Dept. of Phys., Teito Univ. $^B$Dept. of Phys, Nihon Univ. of Tech.}\\
+
+% {\large \bf J. Tomeda$^A$ and M. Gatagawa$^B$}
+% \end{center}
+
+% \vspace{10pt}
 %%%%%%%%% main %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-我々はJ-PARC 高運動量二次粒子ビームラインにおいてチャームバリオンの分光実験を計画している。この実験では$\pi+p\rightarrow\Lambda_c^{*+}+D^{*-}$反応において、ビーム粒子運動量と散乱$D^{*-}$の終状態である$K,\,\,\pi,\,\,\pi$の4元運動量から欠損質量法でチャームバリオンの質量スペクトルを測定することで、バリオン内部のクォークの運動の相関であるダイクォーク相関を調べることを目的としている。この実験では(高強度ビームによる高い信号レートと終状態の複雑さにより従来のハードウェアトリガーでは十分に事象選別を行うことができないために)(←入れるか迷う。)ハードウェアトリガーを撤廃した連続読み出し式DAQを用いる。
-\begin{itemize}
-  \item J-PARCチャームバリオン実験の背景と目的
-  \item 連続読み出しDAQとオンラインフィルターを組み合わせる
-  \item 連続読み出しDAQの試験(T103)を行った
-  \item コインシデンスレベルのオンラインフィルターが実装された
-  \item オンラインフィルターで実現したいこと(これ概要にはいらないかも)
-  \begin{itemize}
-    \item ビームスルー粒子の除去
-    \item (飛んで)
-    \item 反応によって生成された粒子の識別
-    \item Kやpiを含む事象の選別
-  \end{itemize}
-  \item その第一段階としてビームスルー粒子の除去のためのアルゴリズムの検討とそのために必要な計算資源の評価を行った
-  \begin{itemize}
-    \item (将来の展望)
-    \item この結果を元に、さらに高度なオンラインフィルターのために必要な計算資源の評価
-  \end{itemize} 
-\end{itemize}
+我々はJ-PARC 高運動量二次粒子ビームラインにおいてチャームバリオンの分光実験を計画している。この実験では20 $\mathrm{GeV}/c$の$\pi$中間子ビームを液体水素標的に衝突させ、チャームバリオンの励起状態$Y_c^{*+}$と$D^
+{*-}$中間子を生成させる。この$\pi^-+p\rightarrow\Lambda_c^{*+}+D^{*-}$反応において、ビーム粒子運動量と散乱$D^{*-}$の終状態粒子である$K,\,\,\pi,\,\,\pi$の運動量から欠損質量法でチャームバリオンの質量スペクトルを測定し、それに現れるチャームバリオンの励起状態の生成・崩壊分岐比からバリオン内部のクォーク対の運動の相関であるダイクォーク相関を調べることを目的としている。
+
+この実験では
+% (断面積の小さい反応であるために)(←トル)
+% (
+高強度ビームによる高い信号レートおよび終状態の複雑さにより従来のハードウェアトリガーでは十分に事象選別を行うことができないために、
+% )(←入れるか迷う。)
+実験で用いる汎用スペクトロメーター(MARQ)ではハードウェアトリガーを撤廃した連続読み出し式DAQを用いる。連続読み出し式DAQにて計算機ネットワークへ送られるデータレートは膨大であり、その中から不要な事象を除去するためのオンラインフィルタープロセスが開発中である。
+
+J-PARC K1.8BRで2024 年4--6 月のビームタイムにて行われた、ハドロンビームを用いた連続読み出し式DAQの試験にて取得されたデータを用いて、ビーム粒子が標的と反応せずに通過する事象を除去することを目的としたフィルターアルゴリズムを検討した。そのデータレート削減性能の評価と必要な計算資源の調査を行った結果について報告する。また、この結果をもとに、さらに高度なオンラインフィルタープロセスのために必要な計算資源の評価についても議論する。
+
+% \begin{itemize}
+%   \item 
+% \end{itemize}
+% \begin{itemize}
+%   \item J-PARCチャームバリオン実験の背景と目的
+%   \item 連続読み出しDAQとオンラインフィルターを組み合わせる
+%   \item 連続読み出しDAQの試験(T103)を行った
+%   \item コインシデンスレベルのオンラインフィルターが実装された
+%   \item オンラインフィルターで実現したいこと(これ概要にはいらないかも)
+%   \begin{itemize}
+%     \item ビームスルー粒子の除去
+%     \item (飛んで)
+%     \item 反応によって生成された粒子の識別
+%     \item Kやpiを含む事象の選別
+%   \end{itemize}
+%   \item その第一段階としてビームスルー粒子の除去のためのアルゴリズムの検討とそのために必要な計算資源の評価を行った
+%   \begin{itemize}
+%     \item (将来の展望)
+%     \item この結果を元に、さらに高度なオンラインフィルターのために必要な計算資源の評価
+%   \end{itemize} 
+% \end{itemize}
 % この講演概要集原稿はtexのtemplateを用いて書かれています。\\
 % 以下に挙げる決まりを守って頂ければ、最終判断は著者にあるので、多少の違いはあっても構いません。
 
