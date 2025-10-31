@@ -34,13 +34,21 @@
 \vspace*{0.3cm}
 
 %Authors
-First, Last$^{1}$ and Fname, Lname$^{2}$\\
+S. Kashima$^1$, K. Shirotori$^1$, H. Noumi$^1$, Y. Igarashi$^2$, T. Gunji$^3$, K.
+Suzuki$^1$, R. Honda$^2$, for T103 Collaboration, and for SPADI Alliance\\
+
 %Address{1}
 $^{1}${\it Research Center for Nuclear Physics (RCNP), Osaka University,
 Ibaraki, Osaka 567-0047, Japan}\\
 %Address{2}
-$^{2}${\it Research Center for Nuclear Physics (RCNP), Osaka University,
-Ibaraki, Osaka 567-0047, Japan}\\
+$^{2}${\it High Energy Accelerator Research Organization (KEK),
+1-1 Oho, Tsukuba, Ibaraki 305-0801, Japan
+}\\
+%Address{3}
+$^{3}${\it Faculty of Science Bldg. 1, Room 316,
+7-3-1 Hongo, Bunkyo-ku, Tokyo 113-0033, Japan
+The University of Tokyo (Hongo Campus)
+}\\
 \end{center}
 
 \vspace*{0.5cm}
@@ -48,70 +56,20 @@ Ibaraki, Osaka 567-0047, Japan}\\
 %==============================================================
 %     Main text
 %
-Brief background and purposes. 
-Brief background and purposes.  
-Brief background and purposes.  
-Brief background and purposes.  
-Brief background and purposes.  
-Brief background and purposes~\cite{Brambilla:2022ura}.
 
+% 我々はJ-PARC 高運動量二次粒子ビームラインにおいてチャームバリオンの分光実験を計画している。この実験では20 $\mathrm{GeV}/c$の$\pi^-$中間子ビームを液体水素標的に衝突させ、チャームバリオンの励起状態$Y_c^{*+}$と$D^
+% {*-}$中間子を生成する。この$\pi^-+p\rightarrow\Lambda_c^{*+}+D^{*-}$反応において、ビーム粒子運動量と散乱$D^{*-}$の終状態粒子である$K^+,\,\,\pi^-,\,\,\pi^-$の運動量から欠損質量法でチャームバリオンの質量スペクトルを測定し、それに現れるチャームバリオンの基底状態の生成率や励起状態の生成・崩壊分岐比からバリオン内部のクォーク対の運動であるダイクォーク相関を調べることを目的としている。
 
-Methods methods methods. 
-Methods methods methods.  
-Methods methods methods.  
-Methods methods methods.  
-Methods methods methods~\cite{Aoki:2021cqa}.
+% 実験で想定される高い信号レートの環境下で複雑なチャームバリオン生成事象を効率的に収集するには複雑な事象選別が要求されるため、ハードウェアトリガーを撤廃した連続読み出しデータ収集システム(SRODAQ)を用いる。
+% SRODAQにおいて計算機ネットワークへ送られる無選別のデータから不要な事象を除去するためのオンラインフィルタープロセスの開発を行っている。
 
+% J-PARC K1.8BRに建設したテストベンチを用いて2024 年4--6 月のビームタイムに、ハドロンビームを用いた連続読み出しDAQの試験$^{\left[1\right]}$を実施した。取得されたデータを用いて、ビーム粒子が標的と反応せずに通過する事象を除去することを目的としたフィルターアルゴリズムを検討した。事象選別によるデータレート削減性能の評価と必要な計算資源の調査を行った結果について報告する。
 
+We are planning a spectroscopy experiment of charmed baryons at the high-momentum secondary beamline of J-PARC. In this experiment, a 20 GeV/c $\pi^-$ meson beam will be incident on a liquid-hydrogen target to produce excited charmed baryons $Y_c^{+}$ and $D^{-}$ mesons. In the $\pi^- + p \rightarrow \Lambda_c^{+} + D^{-}$ reaction, we will measure the mass spectrum of charmed baryons via the missing-mass method using the beam particle momentum and the momenta, that are measured with MARQ spectrometer, of the final-state particles $K^+,,\pi^-,,\pi^-$ from the decay of the scattered $D^{*-}$. The objective is to investigate diquark correlations, which correspond to the internal motion of quark pairs inside the baryon, by studying the production rates of ground-state charmed baryons and the production and decay branching ratios of excited states that appear in the spectrum.
 
-Fig.~\ref{fallapart} shows the process that we study. 
-The matrix element is then expressed as 
-\be
-{\cal M}_{A \to BC} =
--i \sqrt{2} 
-\bra BC |  
- \int d^3 x \, g \bar \psi \gamma_5 \psi
-e^{-i \vec q \cdot \vec x} 
-|A\ket ,
-\label{calM1}
-\ee
+To efficiently collect complex charmed-baryon production events under the high-rate environment expected in the experiment, sophisticated event selection is required. Therefore, we employ a streaming readout data acquisition system (SRODAQ) without a hardware trigger. In SRODAQ, we are developing an online filtering process to remove unnecessary events from the unfiltered data sent to the computing network.
 
-%figure---------------------------------------------
-\begin{figure}[h]
-\centering
-\includegraphics[width=14cm,clip]{fig_decay.eps}
-\caption{
-Caption Caption Caption Caption Caption Caption Caption Caption Caption  }
-\label{fallapart}
-\end{figure}
-%figure---------------------------------------------
-
-
-Discussions Discussions Discussions Discussions Discussions Discussions Discussions Discussions 
-Discussions Discussions Discussions Discussions Discussions Discussions Discussions Discussions 
-Discussions Discussions Discussions Discussions Discussions Discussions Discussions Discussions 
-
-%---------------------------------------------
-\begin{table}[h]
-\centering
-\caption{\label{widthp} \small Caption Caption Caption Caption Caption Caption Caption Caption Caption.  
-}
-\begin{tabular}{ c c | c c c c }
-\hline
- &  & \multicolumn{4}{c}{$g_{KNR}$} \\
- &  & $J^P=1/2^-$ & & $1/2^+$ \\
-\hline
-$\bra r^2 \ket^{1/2}$ &  $\alpha_0^2$  &  & SF  &  SC  &  JW\\
-$1/\sqrt{2}$ fm & 3 fm$^{-2}$ & 4.1 & 7.7 & 5.5 & 3.2\\
-1 fm & 1.5 fm$^{-2}$ & 3.2 & 8.4 & 5.9 & 3.4\\
-\hline
-\end{tabular}
-\end{table}
-%---------------------------------------------
-
-More Discussions More Discussions More Discussions More Discussions More Discussions More Discussions
-More Discussions More Discussions More Discussions More Discussions More Discussions More Discussions
-
+Using the test bench built at the J-PARC K1.8BR beamline, we conducted a streaming readout DAQ test with a hadron beam during the beam time from April to June 2024$^{[1]}$. Based on the acquired data, we investigated a filter algorithm aimed at rejecting beam-through events in which the beam particle passes through the target without reaction. We report on the evaluation of the data-rate reduction performance achieved by the event selection and the study of the required computing resources.
 
 
 %=============================================
@@ -122,17 +80,10 @@ More Discussions More Discussions More Discussions More Discussions More Discuss
 \begin{thebibliography}{9}
 %
 \vspace*{-0.2cm}
-\bibitem{Brambilla:2022ura}
-N.~Brambilla, H.~X.~Chen, A.~Esposito, J.~Ferretti, A.~Francis, F.~K.~Guo, C.~Hanhart, A.~Hosaka, R.~L.~Jaffe and M.~Karliner, \textit{et al.}
-%``Substructure of Multiquark Hadrons (Snowmass 2021 White Paper),''
-[arXiv:2203.16583 [hep-ph]].
+\bibitem{Shirotori:2024t103}
+K. Shirotori \textit{et al.}, J-PARC proposal T103, “Proposal for a test experiment to evaluate the performance of the trigger-less data-streaming type data acquisition system” (2024)
 
 \vspace*{-0.2cm}
-
-\bibitem{Aoki:2021cqa}
-K.~Aoki, H.~Fujioka, T.~Gogami, Y.~Hidaka, E.~Hiyama, R.~Honda, A.~Hosaka, Y.~Ichikawa, M.~Ieiri and M.~Isaka, \textit{et al.}
-%``Extension of the J-PARC Hadron Experimental Facility: Third White Paper,''
-[arXiv:2110.04462 [nucl-ex]].
 
 \end{thebibliography}
 \end{document}
