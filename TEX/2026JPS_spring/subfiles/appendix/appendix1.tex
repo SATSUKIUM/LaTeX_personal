@@ -1,0 +1,310 @@
+\documentclass[../../main.tex]{subfiles}
+\usepackage{amsmath,amsthm,amsfonts,latexsym,mathtools,bm,ulem,amssymb,tikz,circuitikz,graphicx}
+\usepackage{times}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{here}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{mhchem}
+\usepackage{upgreek}%ギリシャ文字を立てるのだ
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\usepackage{wrapfig}%文中に画像を入れる
+\begin{document}
+
+\FloatBarrier
+\section{実験準備の詳細}
+実験準備(\ref{preparation}章)で述べた実験装置の詳細を述べる。
+
+\subsection{GSO結晶のPMTへの固定}
+
+物理測定(\ref{exp5}章)にて広い範囲で散乱体からの$\upgamma$線を捉えるために大きいサイズのGSO(Ce $5$\%)無機シンチレータを用いた。
+% 「本実験」ってどれよ？って思ったので明記した。あと、GSOもほかと比較の上選んだわけではないから用いたという言葉にとどめた。
+$2.0\times2.0\times12.0$ \si{\centi\meter^3}の四角柱の形状のものを用いた。(図\ref{fig:preparation_GSO_crystal})
+
+GSO結晶の密度は$6.7$ \si[per-mode=symbol]{\gram\per\cubic\centi\meter}と高いので、図\ref{fig:preparation_PMT_and_crystal}のようにPMTと結晶を水平に接続しようとするとき、GSO結晶が重力で落ちてしまわないように固定することが必要である。そこで図\ref{fig:preparation_PMT_crystal_resin}に透明の円形のパーツで示したような固定具を作成した。設計は3DCADソフトAutodesk Fusion360を使い、印刷は光造形3DプリンタElegoo Saturn2を用いた。
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=5cm]{../FIGURE/GSO_crystal.jpg}
+  \caption{本実験に用いたGSO(Ce)シンチレータ}\label{fig:preparation_GSO_crystal}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{minipage}[b]{0.48\columnwidth}
+    \centering
+    \includegraphics[width=\columnwidth]{../FIGURE/PMT_and_crystal.jpg}
+    \subcaption{PMTとシンチレータのサイズの外観}\label{fig:preparation_PMT_and_crystal}
+  \end{minipage}
+  \hspace{0.04\columnwidth} % ここで隙間作成
+  \begin{minipage}[b]{0.48\columnwidth}
+    \centering
+    \includegraphics[width=\columnwidth]{../FIGURE/PMT_crystal_resin.jpg}
+    \subcaption{PMTとシンチレータの固定のためのパーツ}\label{fig:preparation_PMT_crystal_resin}
+  \end{minipage}
+  \caption{GSOシンチレータ固定具の概要}
+\end{figure}
+
+\subsubsection{固定具の寸法}
+  断面サイズ$2\times2$ \si{\square\centi\meter}のGSO結晶に対して集光用のテープなどを巻いてから固定することを見据えて、以下のようにシンチレータの太さより、テープの厚みだけ余裕を持たせて設計を行った。
+
+  図\ref{fig:preparation_dimension1}のスケッチの形状を$Y$軸回転させ、その上面を図\ref{fig:preparation_dimension2}のスケッチの通りに原点が中心の正方形でくり抜いた。その後適度に面取りをして図\ref{fig:preparation_dimension3}の通りに設計をした。
+
+  これを図\ref{fig:preparation_PMT_crystal_resin}の配置でPMTに固定する。まずはPMTのアウターチューブとシンチレータ固定具をテープで巻くことで固定する。その次に後述の集光用テープで巻いたGSOシンチレータの片端を固定具に差し込み、GSOシンチレータの他方の端からテープで張るようにしてPMTに固定する。(図\ref{fig:preparation_GSO_fix})
+  \begin{figure}[H]
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{../FIGURE/fix_parts_01.png}
+      \subcaption{寸法1}\label{fig:preparation_dimension1}
+    \end{minipage}
+    \hspace{0.04\columnwidth} % ここで隙間作成
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{../FIGURE/fix_parts_02.png}
+      \subcaption{寸法2}\label{fig:preparation_dimension2}
+    \end{minipage}
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{../FIGURE/fix_parts_03.png}
+      \subcaption{寸法3}\label{fig:preparation_dimension3}
+    \end{minipage}
+    \caption{シンチレータ固定具の寸法と完成図}
+  \end{figure}
+
+  \begin{figure}[H]
+    \begin{minipage}[b]{0.4\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{../FIGURE/GSO_fix_01.jpg}
+      \subcaption{集光用のテープを巻いたGSO結晶を固定具に差し込んだ様子}\label{fig:preparation_GSO_fix_01}
+    \end{minipage}
+    \hspace{0.04\columnwidth} % ここで隙間作成
+    \begin{minipage}[b]{0.4\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{../FIGURE/GSO_fix_02.jpg}
+      \subcaption{シンチレータ固定具をPMTのアウターチューブにテープで固定した様子}\label{fig:preparation_GSO_fix_02}
+    \end{minipage}
+    \begin{minipage}[b]{0.4\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{../FIGURE/GSO_fix_03.jpg}
+      \subcaption{GSO結晶の「頭」をテープで張ることでPMTへ固定した様子}\label{fig:preparation_GSO_fix_03}
+    \end{minipage}
+    \caption{GSOシンチレータ固定具の実際の写真}\label{fig:preparation_GSO_fix}
+  \end{figure}
+
+
+\subsubsection{固定具の印刷}
+  用いた3Dプリンター、レジン、露光時間などのセッティングを書く
+
+  図\ref{fig:preparation_dimension3}の3DCADデータを3Dプリンタで印刷可能な形式にするためにスライスソフトChituBox Basicを用いてスライスした。このソフトでは3Dプリンタの機種名を選ぶことで基本的な設定がインポートされるようになっており、今回用いた3DプリンタElegoo Saturn2を選択した。使用するレジン(Elegoo Standard Photopolymer Resin)の種類もここで選択した。
+
+  ChituBox Basicではスライスする3Dモデルに自動でサポート用の「足」をつけることが可能であるが、印刷時にその足が本体と融合してしまう不具合が出たため足はつけないことにした。最終的に印刷に成功した印刷パラメータを表\ref{table:preparation_3Dprinter}に記す。
+  \begin{table}[H]
+    \begin{center}
+      \caption{3Dプリンタの印刷パラメータ}\label{table:preparation_3Dprinter}
+     \begin{tabular}{l|r}
+       項目 & 値 \\\hline\hline
+       Layer Hight & 0.050 \si{\milli\meter}  \\
+       Bottom Layer Count & 10 \\
+       Exposure Time & 25.000 \si{\second} \\
+       Bottom Exposure Time & 35.000 \si{\second}
+     \end{tabular}
+    \end{center}
+   \end{table}
+
+\subsubsection{集光用のアルミナイズドマイラー}
+  なるべく多くの光をPMTに送るために、GSO結晶の周囲にはシンチレーション光を反射させる目的のアルミナイズドマイラーフィルムを巻いた。図\ref{fig:preparation_alum_mylar}のような展開図の通りにアルミナイズドマイラーフィルムを切り取り、結晶に巻き付けたのちにテープで周囲を巻くことでフィルムを結晶に密着させた。
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\columnwidth]{../FIGURE/alum_mylar_01.jpg}
+    \caption{アルミナイズドマイラーフィルムの展開図の概要}\label{fig:preparation_alum_mylar}
+  \end{figure}
+
+
+
+  \subsection{アルミフレーム}\label{sec:aluminium-fram_append}
+
+
+  \subsubsection{アルミフレームとカウンタの配置}
+    図\ref{fig:preparation_al_frame_layout}のようにアルミフレームを設計した。図\ref{fig:preparation_al_frame_layout03}に、吸収体$\text{A1}$以外のカウンタを設置するメインの部分と吸収体$A1$を設置するためのサブの部分を記した。図\ref{fig:preparation_al_frame_layout01}には各カウンタの設置場所をマークしている。散乱体$\mathrm{S1}$, $\mathrm{S2}$の距離はそれらを水平に移動することで変えられるようにしている。図\ref{fig:preparation_al_frame_layout02}に複数の吸収体$\text{A2}$の配置を示している。吸収体$\mathrm{A2}$はすべて図\ref{fig:preparation_al_frame_layout02}での横方向にはどこにでも配置でき、横方向に渡っているフレーム自体を上下させることで図\ref{fig:preparation_al_frame_layout02}の紙面内で2次元の自由度をもたせることで散乱体$\mathrm{S2}$からの距離を変えることを可能にしている。
+  
+  \subsubsection{アルミフレームの寸法とパーツリスト}
+    図\ref{fig:preparation_al_frame_layout05}にそれらの寸法を示した。長さの単位はすべてmmである。この寸法通りのパーツリストは表\ref{table:preparation_al_frame}に記した。
+    \begin{figure}[H]
+      \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{../FIGURE/preparation/al_frame_layout03.png}
+        \subcaption{アルミフレーム鳥瞰図。吸収体$\text{A1}$以外のすべてのカウンタを設置するメインの部分と、吸収体$\mathrm{A1}$を配置するサブの部分がある。}\label{fig:preparation_al_frame_layout03}
+      \end{minipage}
+      \hspace{0.04\columnwidth} % ここで隙間作成
+      \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{../FIGURE/preparation/al_frame_layout01.png}
+        \subcaption{アルミフレーム鳥瞰図。(各カウンターの場所を記した。)}\label{fig:preparation_al_frame_layout01}
+      \end{minipage}
+
+      \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{../FIGURE/preparation/al_frame_layout04.png}
+        \subcaption{アルミフレーム側面図。図\ref{fig:preparation_al_frame_layout03}の赤い軸の方向から見ている。}\label{fig:preparation_al_frame_layout04}
+      \end{minipage}
+      \hspace{0.04\columnwidth} % ここで隙間作成
+      \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{../FIGURE/preparation/al_frame_layout02.png}
+        \subcaption{アルミフレーム側面図。散乱体S1, S2が手前と奥に並ぶことになる。}\label{fig:preparation_al_frame_layout02}
+      \end{minipage}
+      
+      \caption{アルミフレームの概要とレイアウト}\label{fig:preparation_al_frame_layout}
+    \end{figure}
+
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.7\columnwidth]{../FIGURE/preparation/al_frame_layout05.png}
+      \caption{アルミフレームの寸法。長さの単位はミリメートルで示している。}\label{fig:preparation_al_frame_layout05}
+    \end{figure}
+  
+  \begin{table}[H]
+    \centering
+    \caption{アルミフレームのパーツ構成}\label{table:preparation_al_frame}
+    \begin{tabular}{ll|l}
+      品番 & 名称 & 個数 \\\hline\hline
+      NFS5-2020-130 & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 4  \\
+      NFS5-2020-240 & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 2  \\
+      NFS5-2020-300 & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 4  \\
+      NFS5-2020-315 & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 4  \\
+      NFS5-2020-330 & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 4  \\
+      NFS5-2020-415 & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 4  \\
+      NFS5-2020-450 & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 4  \\
+      NFS5-2020-70  & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 8  \\
+      NFS5-2020-740 & 5シリーズ Nタイプ 正方形 20×20mm 1列溝 4面溝 & 6  \\
+      HBLFSN5-SET   & 突起付反転ブラケット                     & 64
+    \end{tabular}
+  \end{table}
+
+
+% \subsubsection{アルミフレームへのシンチレーションカウンタの設置}
+%   図\ref{fig:preparation_GSO_fix}に示したようなGSO(Ce)シンチレーションカウンタや、後述の\footnote{NaIのほうは後述したい。}NaI(Tl)シンチレーションカウンタは図\ref{fig:preparation_counter_layout}のように配置される。図\ref{fig:preparation_al_frame_layout06}と図\ref{fig:preparation_al_frame_layout08}に赤い球体でマークした$^{22}\text{Na}$放射線源から散乱体$S2$に向かった511 \keV の$\upgamma$線が$S2$でコンプトン散乱して、$S1$を取り囲むように配置された吸収体$A2_{X^\circ}$で光電吸収されるようなイベントを捉えることのできる配置になっている。
+%   \begin{figure}[H]
+%     \begin{minipage}[b]{0.48\columnwidth}
+%       \centering
+%       \includegraphics[width=\columnwidth]{../FIGURE/preparation/al_frame_layout06.png}
+%       \subcaption{アルミフレームに設置されるシンチレーションカウンタ(PMT)の配置1}\label{fig:preparation_al_frame_layout06}
+%     \end{minipage}
+%     \hspace{0.04\columnwidth} % ここで隙間作成
+%     \begin{minipage}[b]{0.48\columnwidth}
+%       \centering
+%       \includegraphics[width=\columnwidth]{../FIGURE/preparation/al_frame_layout07.png}
+%       \subcaption{アルミフレームに設置されるシンチレーションカウンタ(PMT)の配置2}\label{fig:preparation_al_frame_layout07}
+%     \end{minipage}
+
+%     \begin{minipage}[b]{0.48\columnwidth}
+%       \centering
+%       \includegraphics[width=\columnwidth]{../FIGURE/preparation/al_frame_layout08.png}
+%       \subcaption{アルミフレームに設置されるシンチレーションカウンタ(PMT)の配置3}\label{fig:preparation_al_frame_layout08}
+%     \end{minipage}
+    
+%     \caption{アルミフレームの上に配置されるシンチレーションカウンタの概要}\label{fig:preparation_counter_layout}
+%   \end{figure}
+
+
+
+
+
+
+
+
+
+
+% \subsection{パルス波形デジタイザー: DRS4 Evaluation Board}
+% PMTの波形の記録のために用いたDAQシステムであるPSIのDRS4 Evaluation Boardについて述べる。DRS4 Evaluation Boardは内部に1024個のキャパシタ(それぞれをセルと呼ぶ)と読み出し回路からなるインプットを4つ(4CH)持つパルス波形デジタイザーである。内部のクロックに従って各セルを巡回しつつ、順次それぞれのセルにパルスの振幅に比例した電荷が充電されてゆく。DAQの際には発行されるセルフトリガー(もしくは入力される外部トリガー)があれば各セルへの充電はストップされ、巡回してるセルたちのうち、トリガーが発行されたタイミングでのセルから電荷の読み出し(デジタイズ)が行われる。セルの巡回の速さは内部のクロックによって制御されており、サンプリングレートは$0.7$--$5$ GSPsまで変更できる。1024セルあるので記録される波形の時間幅は$0.7$ GSPsのときは$1024\times\frac{1}{0.7}\sim1462$ nsで、$5$ GSPsのときは$1024\times\frac{1}{5}\sim205$ nsである。
+
+\subsubsection{DAQ制御ソフト: DRSOsc}
+  DRS4の制御には同じくPSIのDRSOscというGUIソフトを用いた。DRSOscはDRS4からの波形情報をバイナリファイルに順次書き込んで記録することができる。
+
+  DRSOscではDRS4 Evaluation Board内部の$100$ \si{\mega\hertz}のクロックを用いてDRS4の各セルの固有の時間幅(もし$1$ GPSsで動作する場合は1セルあたり約$1$ nsの時間幅となるが、各セルによって少しのばらつきがある)を測定し、波形の時間情報の較正用データを取得できる。DRS4 Evaluation Boardでは波形の読み出しを開始するセルがイベントによってことなるためにこのような較正が必要なのである。
+
+  DRS4 Evaluation Boardから送られてくるバイナリデータには、上記の時間較正データと、各イベントごとにイベント番号、日時(ミリ秒まで)と波形読み出しを始めるセル(トリガーセルと呼ぶ)と各チャンネルごとの電圧値がトリガーセルから順に1024個などが含まれている。(参考: 図\ref{fig:preparation_binary_example})
+
+  \begin{figure}[H]
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{../FIGURE/preparation/binary_example01.png}
+      \subcaption{バイナリファイルの構成(1)}\label{fig:preparation_binary01}
+    \end{minipage}
+    \hspace{0.04\columnwidth} % ここで隙間作成
+    \begin{minipage}[b]{0.48\columnwidth}
+      \centering
+      \includegraphics[width=\columnwidth]{../FIGURE/preparation/binary_example02.png}
+      \subcaption{バイナリファイルの構成(2)}\label{fig:preparation_binary02}
+    \end{minipage}
+    \caption{DRSOscにて取得できる波形のバイナリファイル\cite{preparation:DRS4_manual}}\label{fig:preparation_binary_example}
+  \end{figure}
+
+
+  \FloatBarrier
+  \subsection{DRS4の波形情報バイナリの変換と時間較正アルゴリズムの改良}
+    DRSOscでDAQするとき、大量の波形データを省スペースで高速に記録するために、波形はある様式に則ったバイナリファイルとして記録される。その様式の詳細はPSIのDRS4 Evaluation Boardのマニュアル\cite{preparation:DRS4_manual}に記載されている。 そのバイナリファイルから波形を読み出すプログラムの改良をし、読み出しのための計算量を大幅に削減したことを報告する。
+
+    \subsubsection{DRSOscのバイナリの様式}
+      最終的に得るものは、デジタイズされたパルスの電圧(振幅)と時間のペアの配列である。しかしながらDRSOscのバイナリの記録形式ではそれらはペアとして記録することはなされていない。
+      
+      DRS4 Evaluation Boardは1024個の電圧サンプリングセルがパルスを順次デジタイズするが、各セルごとでサンプリング時間幅が少し異なっている。例えば$0.7$ GSPsで動作させた場合は1セルあたり$1/(0.7\times10^9)$ \si{\second}つまり、$1.43$ \si{\nano\second}の時間幅でパルスをサンプリングすることになるが、その時間幅はセルごとに個体差があり(これはマニュアルでは有効ビン幅、effective bin widthと呼ばれている)、例えば物理測定(\ref{exp5}章)にてマスターボードとして使用したボードでは図\ref{fig:appendix_effective_bin_width_distribution}のように有効ビン幅がばらついている。この有効ビン幅は時間が経っても変化しないので各Runの全てのイベントに有効であり、全てのイベントで繰り返して時間情報をバイナリに記録しなくとも済むので省スペースになる。
+      
+      DRS4 Evaluation Boardでパルス波形を記録するとき、バイナリファイルには、各イベントごとに読み出しを始めたセルから順にパルス電圧(振幅)が記録される。問題は、各イベントごとにどのセルから読み出しを始めるか(マニュアル\cite{preparation:DRS4_manual}ではトリガーセル、trigger cellと呼ばれている)が異なっていることである。
+
+      \begin{figure}[tbp]
+        \centering
+        \includegraphics[width=0.85\columnwidth]{../FIGURE/appendix/effective_bin_width_distribution.png}
+        \caption{有効ビン幅のばらつきの例}
+        \label{fig:appendix_effective_bin_width_distribution}
+      \end{figure}
+    
+    \subsubsection{波形の時間の計算}
+      マニュアル\cite{preparation:DRS4_manual}のノーテーションに則って議論を進める。記録された電圧(振幅)の配列のインデックスを$i$ $(0\leq i \leq 1023)$、そのセルの時刻を$t_{ch}[i]$、あるチャンネル$ch$の各セルごとの有効ビン幅の配列を$dt_{ch}[1024]$、トリガーセルが$tcell$番目だとすると
+      \begin{align}
+        t_{ch}[i]=\sum_{j=0}^{i-1}dt_{ch}\qty[(j+tcell)\%1024]\label{eq:appendix_t_ch}
+      \end{align}
+      である。($t_{ch}[0]=0$である)
+
+      $tcell$は各イベントごとに異なるために、あるイベントの各セルの時刻を計算する必要があり、その計算回数は1イベントあたり
+      \begin{align}
+        \begin{split}
+          \text{計算回数}&=\text{ボード数2}\times\text{チャンネル数4}\times(0+1+2+3+4+\cdots +1023)\\
+        &=4,190,208
+      \end{split}
+      \end{align}
+      つまり、$10^6$回もの配列参照を伴う計算が必要である。この操作を全てのイベントについて行う必要があり、オンサイトの解析効率が大きく損なわれる。
+
+    \subsubsection{計算方法の改良}
+      有効ビン幅$dt_{ch}[i]$がRunの全てのイベントに有効であることに着目し、各イベントごとに和を取るのではなく事前に和を計算することで計算量を減らす。式\eqref{eq:appendix_t_ch}の右辺で$tcell$をゼロにしたものを累積有効ビン幅$S_{ch}[i]$とし、式\eqref{eq:appendix_cumulative_effective_bin_width}で定義する。図\ref{fig:appendix_cumulative_bin_width}に青い矢印で示した範囲で有効ビン幅の和をとったものが累積有効ビン幅である。
+      \begin{align}
+        S_{ch}[i]&=\sum_{j=0}^{i-1}dt_{ch}\qty[j\%1024]\label{eq:appendix_cumulative_effective_bin_width}
+      \end{align}
+      累積有効ビン幅を用いると$t_{ch}[i]$は以下の式\eqref{eq:appendix_cumulative_effective_bin_width}累積有効ビン幅の差で書ける。図\ref{fig:appendix_cumulative_bin_width}の$i$では$t_{ch}[i]$は以下の式\eqref{eq:appendix_cumulative_effective_bin_width}で表される。
+      \begin{align}
+        t_{ch}[i]=\begin{cases}
+          S[tcell+i]-S[tcel] & \quad tcell+i\leq1023\\
+          S[1023]+S[tcell+i]-S[tcel] & \quad tcell+i>1023
+        \end{cases}\label{eq:appendix_cumulative_effective_bin_width}
+      \end{align}
+
+      \begin{figure}[tbp]
+        \centering
+        \includegraphics[width=0.85\columnwidth]{../FIGURE/appendix/cumulative_bin_width.png}
+        \caption{累積有効ビン幅のイメージ。横軸にDRS4のチップ内のセル番号をとっており、1023番目のセルがパルスをデジタイズしたあと0番目のセルへ移る様子を表している。}
+        \label{fig:appendix_cumulative_bin_width}
+      \end{figure}
+
+      累積有効ビン幅をRunごとに一度だけ$1024$個計算すれば、そのRunに含まれる全イベントの時刻$t_{ch}[i]$の計算には単に累積有効ビン幅の差を$1024$回とるだけで良いため、バイナリを読むための計算量がかなり減り、1イベントごとに
+      \begin{align}
+        \begin{split}
+        \text{計算回数}&=\text{ボード数2}\times\text{チャンネル数4}\times\text{累積有効ビン幅$S[i]$の差2}\times\text{セル数1024}\\
+        &=16384
+      \end{split}
+      \end{align}
+      の16384回($10^4$オーダー)の配列参照の伴う計算で済む。
+
+
+
+
+\end{document}

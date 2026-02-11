@@ -1,0 +1,115 @@
+%%%%%%%%% JPS abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper,upLaTeX]{jsarticle}
+
+%%%%%%%%% packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx} % Include figure files
+\usepackage[%                           % 余白の設定
+%mag=1400,%                              jarticle の場合（14ptに）
+dvipdfm,truedimen,%
+top=30truemm,bottom=20truemm,%
+left=20truemm,right=20truemm]{geometry}
+\pagestyle{empty}
+
+%%%%%%%%% header %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\vspace{-5pt}
+\begin{center}
+{\gt \Large J-PARC チャームバリオン分光実験のためのリアルタイム事象識別プロセス の開発と評価 }\\[14pt]
+
+{\gt \large 阪大RCNP, KEK$^A$, 東大CNS$^B$ \\ 加島駿一, 白鳥昂太郎, 野海博之, 五十嵐洋一$^A$, 郡司卓$^B$, 鈴木謙, 本多良
+太郎$^A$, 他T103 コラボレーション, 他SPADI Alliance}\\[5pt]
+
+% {\gt \large 日本科技大$^A$ 帝都大理工$^B$ \\ 止田次郎$^A$, 潟川　学$^B$}\\[5pt]
+
+{\large \bf Development and evaluation of a real-time event identification
+process for the J-PARC charmed baryon spectroscopy experiment}\\[5pt]
+
+{\large \it RCNP, KEK$^A$, CNS$^B$}\\
+
+{\large \bf S. Kashima, K. Shirotori, H. Noumi, Y. Igarashi$^A$, T. Gunji$^B$, K.
+Suzuki, R. Honda$^A$, for T103 Collaboration, and for SPADI Alliance}\\
+
+\end{center}
+
+\vspace{10pt}
+% {\large \it $^A$Dept. of Phys., Teito Univ. $^B$Dept. of Phys, Nihon Univ. of Tech.}\\
+
+% {\large \bf J. Tomeda$^A$ and M. Gatagawa$^B$}
+% \end{center}
+
+% \vspace{10pt}
+%%%%%%%%% main %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+我々はJ-PARC 高運動量二次粒子ビームラインにおいてチャームバリオンの分光実験を計画している。この実験では20 $\mathrm{GeV}/c$の$\pi^-$中間子ビームを液体水素標的に衝突させ、チャームバリオンの励起状態$Y_c^{*+}$と$D^
+{*-}$中間子を生成する。この$\pi^-+p\rightarrow\Lambda_c^{*+}+D^{*-}$反応において、ビーム粒子運動量と散乱$D^{*-}$の終状態粒子である$K^+,\,\,\pi^-,\,\,\pi^-$の運動量から欠損質量法でチャームバリオンの質量スペクトルを測定し、それに現れるチャームバリオンの基底状態の生成率や励起状態の生成・崩壊分岐比からバリオン内部のクォーク対の運動であるダイクォーク相関を調べることを目的としている。
+
+実験で想定される
+% (断面積の小さい反応であるために)(←トル)
+% (
+% 大強度ビームによる高い信号レートおよび終状態の複雑さにより従来のハードウェアトリガーでは十分に事象選別を行うことができないために、
+% 高い信号レートの環境下で複雑なハードウェアトリガーによる事象選別が要求されるため、
+高い信号レートの環境下で複雑なチャームバリオン生成事象を効率的に収集するには複雑な事象選別が要求されるため、
+% )(←入れるか迷う。)
+% 実験で用いる汎用スペクトロメーター(MARQ)のデータ取得ではハードウェアトリガーを撤廃し、その性能に依存しない連続読み出しDAQを用いる。
+ハードウェアトリガーを撤廃した連続読み出しデータ収集システム(SRODAQ)を用いる。
+SRODAQにおいて計算機ネットワークへ送られる無選別のデータから不要な事象を除去するためのオンラインフィルタープロセスの開発を行っている。
+
+J-PARC K1.8BRに建設したテストベンチを用いて2024 年4--6 月のビームタイムに、ハドロンビームを用いた連続読み出しDAQの試験$^{\left[1\right]}$を実施した。取得されたデータを用いて、ビーム粒子が標的と反応せずに通過する事象を除去することを目的としたフィルターアルゴリズムを検討した。事象選別によるデータレート削減性能の評価と必要な計算資源の調査を行った結果について報告する。
+
+[1] K. Shirotori et al., J-PARC proposal T103, “Proposal for a test experiment to evaluate the
+performance of the trigger-less data-streaming type data acquisition system” (2024)
+
+% \begin{itemize}
+%   \item 
+% \end{itemize}
+% \begin{itemize}
+%   \item J-PARCチャームバリオン実験の背景と目的
+%   \item 連続読み出しDAQとオンラインフィルターを組み合わせる
+%   \item 連続読み出しDAQの試験(T103)を行った
+%   \item コインシデンスレベルのオンラインフィルターが実装された
+%   \item オンラインフィルターで実現したいこと(これ概要にはいらないかも)
+%   \begin{itemize}
+%     \item ビームスルー粒子の除去
+%     \item (飛んで)
+%     \item 反応によって生成された粒子の識別
+%     \item Kやpiを含む事象の選別
+%   \end{itemize}
+%   \item その第一段階としてビームスルー粒子の除去のためのアルゴリズムの検討とそのために必要な計算資源の評価を行った
+%   \begin{itemize}
+%     \item (将来の展望)
+%     \item この結果を元に、さらに高度なオンラインフィルターのために必要な計算資源の評価
+%   \end{itemize} 
+% \end{itemize}
+% この講演概要集原稿はtexのtemplateを用いて書かれています。\\
+% 以下に挙げる決まりを守って頂ければ、最終判断は著者にあるので、多少の違いはあっても構いません。
+
+% \begin{itemize}
+% \item 大会名・講演番号・ページ数を入れるため余白の設定を変更しないでください。
+% \item タイトル、所属、氏名、英語表記は上記のような配置で記載してください。
+% \item 講演番号は記載しないでください。
+% \item 枠はつけてはいけません。
+% \item 原稿はフォントを埋め込んだpdfファイルを提出してください。
+% \item 1ファイルは2MB以下になるようにしてください。
+% \end{itemize}
+
+% 以上のことを守って、講演概要の提出をお願いします。
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%% Figure 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{figure}[h]
+% \begin{center}
+% \includegraphics[width=5cm]{JPS.eps}
+% \end{center}
+% \caption{日本物理学会のマーク。カラー図面が掲載できるようになった。 }
+% \end{figure}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \begin{description}
+% \item[注1：] 動画、URLへのハイパーリンクは不可とします。
+% \item[注2：] 概要集に掲載された原稿の著作権は日本物理学会に帰属します。
+% \item[注3：] 概要集アクセス権を購入者は物理学会のホームページで大会終了後1年間閲覧可能。その後は、アクセス権を持つ、持たないに関わらずJ-Stageで閲覧可能。また記録用DVDの購入も可能。
+% \item[注4：] 概要集原稿の提出には登録番号とパスワードを忘れずに。〆切に余裕をもってpdf原稿をwebから送信してください。
+% \end{description}
+
+\end{document}

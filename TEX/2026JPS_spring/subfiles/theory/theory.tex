@@ -1,0 +1,449 @@
+\documentclass[../../main.tex]{subfiles}
+\usepackage{amsmath,amsthm,amsfonts,latexsym,mathtools,bm,ulem,amssymb,tikz,circuitikz,graphicx}
+\usepackage{times}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{here}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{mhchem}
+\usepackage{upgreek}%ギリシャ文字を立てるのだ
+\usepackage{amsmath}
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\usepackage{wrapfig}%文中に画像を入れる
+\begin{document}
+\section{理論・原理}
+
+Bellの不等式にはいくつか種類があるが、ここでは我々の実験によって検証したBell-CHSH不等式について述べる。Bell-CHSH不等式は局所実在論の枠組みで相関関数$S$を考えることで得られる。本章では相関関数$S$を定義し、局所実在論、量子論の枠組みでそれぞれ相関関数$S$を評価する。 
+
+\subsection{相関関数$S$}
+ 
+量子もつれ状態にある2粒子の物理量を以下の図\ref{fig:diagram}のような実験装置で計測することを考える。
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\linewidth]{../FIGURE/diagram.png}
+	\caption{量子もつれ状態にある2粒子を計測する実験装置}
+	\label{fig:diagram}
+\end{figure}
+
+我々の実験では、パラポジトロニウムの対消滅によって生成される光子対を実験粒子として用いる。光子対を互いに180$^\circ$の角度で放出し、それぞれ別の検出器A、Bで計測する。
+計測する物理量$O$は、ある方向の測定軸$\mathbf{n}$ベクトルをとったときに、その測定軸に対して$+1$もしくは$-1$の値をとるものとする。例えば、スピン$\frac{1}{2}$の系のスピン$\hat{S}$やスピンと相関がある偏光などが考えられる。スピンの場合、スピン上向きのとき$O=+1$、スピン下向きのとき$O=-1$とする。偏光の場合、観測軸に対して$x$偏光であれば$O=+1$、$y$偏光であれば$O=-1$とする。本実験では光子対の偏光を計測する物理量とする。
+
+% \vspace{0.3cm} % 1cm の空白を挿入
+検出器A、Bにそれぞれ測定軸を2つ用意する。検出器Aの測定軸を$\mathbf{a_1}$、$\mathbf{a_2}$、検出器Bの測定軸を$\mathbf{b_1}$、$\mathbf{b_2}$とする。ここで、片方の検出器での観測が他方における観測の結果に影響を与えないように、$\mathbf{a} \neq \mathbf{b}$とする。検出器Aで得られる物理量$O$を$\alpha_1(\mathbf{a_1})$、$\alpha_2(\mathbf{a_2})$、検出器Bで得られる物理量$O$を$\beta_1\ (\mathbf{b_1})$、$\beta_2\ (\mathbf{b_2})$と定義する。物理量$O$は$\pm1$の値をとるので、$\alpha_i=\pm1\ (i=1,2)$、$\beta_j=\pm1\ (j=1,2)$である。相関関数$S$は次のように定義される。
+
+\begin{equation}
+	S=\lvert \langle \alpha_2\beta_1 \rangle + \langle \alpha_2\beta_2 \rangle	\rvert+
+	          \lvert \langle \alpha_1\beta_1 \rangle - \langle \alpha_1\beta_2 \rangle	\rvert
+						\label{eq:S}
+\end{equation}
+	
+\subsection{局所実在論における相関関数$S$、Bell-CHSH不等式の導出}
+
+\ref{histBG}章で述べたように、局所実在論の主張では量子もつれ状態にある2光子の状態$\ket{\psi}$は「隠れた変数」を持ち、それによって物理量$O$の値が決定されているとする。本節では隠れた変数を$\lambda$として相関関数$S$を評価する。物理量$O$を持つ粒子のアンサンブルを考えたとき、アンサンブルにおける隠れた変数$\lambda$の分布を$\rho(\lambda)$（$\int d\lambda \rho(\lambda) =1 $）とすると、物理量$O$の期待値は
+
+\begin{equation}
+	 \langle O \rangle = \int d\lambda \rho(\lambda)\hat{O}(\lambda)
+\end{equation}
+となる。
+
+$\lvert \alpha_2 \rvert=1$であることに注意して相関関数$S$ (式\eqref{eq:S})の第1項を評価すると、
+\begin{align}
+	\left\lvert \langle \alpha_2\beta_1 \rangle + \langle \alpha_2\beta_2 \rangle \right\rvert
+	&= \left\lvert \int d\lambda \, \rho(\lambda) \alpha_2\beta_1 + \int d\lambda \, \rho(\lambda) \alpha_2\beta_2 \right\rvert \notag \\
+	&= \left\lvert \int d\lambda \, \rho(\lambda) \alpha_2(\beta_1+\beta_2) \right\rvert \notag \\
+	&\leq \int d\lambda \, \rho(\lambda) \left\lvert \alpha_2 \right\rvert \left\lvert \beta_1+\beta_2 \right\rvert \notag \\
+	&\leq \int d\lambda \, \rho(\lambda)  \left\lvert \beta_1+\beta_2 \right\rvert \label{eq:S+}
+\end{align}
+となる。同様に$\lvert \alpha_1 \rvert=1$であることに注意して第2項を評価すると、
+
+\begin{align}
+	\left\lvert \langle \alpha_1\beta_1 \rangle - \langle \alpha_1\beta_2 \rangle \right\rvert
+	&= \left\lvert \int d\lambda \, \rho(\lambda) \alpha_1\beta_1 - \int d\lambda \, \rho(\lambda) \alpha_1\beta_2 \right\rvert \notag \\
+	&= \left\lvert \int d\lambda \, \rho(\lambda) \alpha_1(\beta_1-\beta_2) \right\rvert \notag \\
+	&\leq \int d\lambda \, \rho(\lambda) \left\lvert \alpha_1 \right\rvert \left\lvert \beta_1-\beta_2 \right\rvert \notag \\
+	&\leq \int d\lambda \, \rho(\lambda)  \left\lvert \beta_1-\beta_2 \right\rvert \label{eq:S-}
+\end{align}
+となる。ここで、$\beta(\mathbf{b},\lambda)=\pm1$であるから、次のうちいずれかが成り立つ。
+
+\begin{equation}
+	\beta_1+\beta_2=\pm2 \quad \text{かつ} \quad \beta_1-\beta_2=0
+\end{equation}
+\begin{equation}
+	\beta_1-\beta_2=\pm2 \quad \text{かつ} \quad \beta_1+\beta_2=0
+\end{equation}
+以上より、
+\begin{equation}
+	\left\lvert \beta_1+\beta_2 \right\rvert+\left\lvert \beta_1-\beta_2 \right\rvert=2 \label{eq:abs}
+\end{equation}
+式\eqref{eq:S+}と式\eqref{eq:S-}を$\int d\lambda \rho(\lambda) =1 $の条件の下で相関関数$S$ (式\ref{eq:S})に代入すると、
+
+\begin{align}
+	S \leq  \int d\lambda \, \rho(\lambda)  \left\lvert \beta_1+\beta_2 \right\rvert + \int d\lambda \, \rho(\lambda)  \left\lvert \beta_1-\beta_2 \right\rvert
+  & \leq \left\lvert \beta_1+\beta_2 \right\rvert+\left\lvert \beta_1-\beta_2 \right\rvert=2
+\end{align}
+よって、局所実在論の枠内では、
+\begin{align}
+	S = \lvert \langle \alpha_2\beta_1 \rangle + \langle \alpha_2\beta_2 \rangle	\rvert+
+	\lvert \langle \alpha_1\beta_1 \rangle - \langle \alpha_1\beta_2 \rangle	\rvert \leq 2\label{eq:locality}
+\end{align}
+を得る。式\eqref{eq:locality}がBell-CHSH不等式である。
+\newpage
+\subsection{量子力学における相関関数$S$}
+本節では、光子対の波動関数より相関関数$S$(式\eqref{eq:S})の量子力学的期待値を求め、局所実在論の枠内から得たBell-CHSH不等式(式\eqref{eq:locality})と比較する。
+
+\subsubsection{光子対の波動関数}
+本実験では、パラポジトロニウムの崩壊に伴い対生成する光子対を使用する。この光子対は角運動量の総和が$0$で量子もつれ状態である。線源は$^{22}\text{Na}$を用いる。$^{22}\text{Na}$の$\beta^+$崩壊により生じる$e^+$が物質中の$e^-$と束縛状態を形成する。この束縛状態はポジトロニウムと呼ばれ、そのスピン方向によってパラとオルトの2種類が生じるが、本実験では全スピン$0$のパラポジトロニウムのみを用いる。パラポジトロニウムが崩壊すると、全スピン$0$の量子もつれ状態にある光子が互いに180$^\circ$の角度で放出される。生成された光子は、511 $\si{\kilo\electronvolt}$の$\gamma$線である。
+
+$2$粒子系の波動関数$\ket{\psi} $は,それぞれのスピン状態を用いて以下のように表すことができる。角運動量の総和が$0$より光子対の全スピンは$0$であるから、スピン一重項状態を考えている。
+
+\begin{align}
+	\ket{\psi} = \frac{1}{\sqrt{2}} (\ket{\uparrow \downarrow}-\ket{\downarrow\uparrow})
+\end{align}
+$x$偏光状態、$y$偏光状態を次のように表す。
+\begin{align}
+	\ket{x} = \frac{1}{\sqrt{2}} (\ket{\uparrow}+\ket{\downarrow}) \\
+	\ket{y} = \frac{1}{\sqrt{2}} (\ket{\uparrow }-\ket{\downarrow})
+\end{align}
+位相差を考慮すると光子対の波動関数は以下のようになる。
+\begin{align}
+	\ket{\psi} = \frac{i}{\sqrt{2}} (-\ket{xy}+\ket{yx})\label{eq:quantum}
+\end{align}
+
+\subsubsection{量子力学における相関関数$S$}
+
+図\ref{fig:diagram}のような実験装置を再度考える。量子もつれ状態にある光子対の偏光をそれぞれ検出器A、Bで観測するとき、検出器Aでの光子の偏光測定軸を$xy$軸でとり、検出器Bでの偏光測定軸を$x'y'$軸でとる。$x'y'$軸が$xy$軸に対して角度$\Phi$傾いているとき、それぞれの偏光状態の関係は、回転行列を用いて
+\begin{align}
+	\ket{x} = \ket{x'}\cos{\Phi}-\ket{y'}\sin{\Phi} \\
+	\ket{y} = \ket{x'}\sin{\Phi}+\ket{y'}\cos{\Phi}
+\end{align}
+となる。これらを式\eqref{eq:quantum}に代入すると
+\begin{align}
+	\ket{\psi} = \frac{i}{\sqrt{2}} (-\ket{xx'}\sin{\Phi}-\ket{xy'}\cos{\Phi}+\ket{yx'}\cos{\Phi}-\ket{yy'}\sin{\Phi})\label{eq:quantum2}
+\end{align}
+
+ここで、検出器Aは実験座標系$(X,Y,Z)$から角度$\Phi_{\mathbf{a_1}}$、$\Phi_{\mathbf{a_2}}$傾いた$2$つの測定軸をもつとする。それぞれの測定軸を用いて得た物理量を$\alpha_1$、$\alpha_2$とし、$\alpha_i~(i=1,2)$は$x$偏光を観測したとき$+1$、$y$偏光を観測したとき$-1$とする。
+検出器Bに関しても同様に実験座標系$(X,Y,Z)$から角度$\Phi_{\mathbf{b_1}}$、$\Phi_{\mathbf{b_2}}$傾いた測定軸をもち、それぞれの測定軸を用いて得た物理量を$\beta_1$、$\beta_2$とする。$\alpha_i~(i=1,2)$と同様に$\alpha_j~(j=1,2)=\pm1$である。
+\newpage
+式\eqref{eq:quantum2}を用いて相関関数$S$における期待値$\langle \alpha_i\beta_j \rangle~(i=1,2~~~j=1,2)$を計算する。ここで$\Phi=\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}$であることに注意すると、
+
+\begin{align}
+  \langle \alpha_i\beta_j \rangle
+  &= \langle \psi | \alpha_i \beta_j | \psi \rangle \nonumber \\
+  &= \frac{1}{2} \left\{ -\left( \sin(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \bra{xx'} + \cos(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \bra{xy'} \right) \right. \nonumber \\
+  & \quad \left. + \cos(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \bra{yx'} - \sin(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \bra{yy'} \right\} \nonumber \\
+  &\alpha\beta \left\{ -\left( \ket{xx'} \sin(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) + \ket{xy'} \cos(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \right) \right. \nonumber \\
+  & \quad \left. + \left( \ket{yx'} \cos(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) - \ket{yy'} \sin(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \right) \right\}\nonumber \\
+  &= \frac{1}{2} \left( \sin^2 (\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) - \cos^2 (\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \right) - \frac{1}{2} \left( \cos^2 (\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \sin^2 (\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}}) \right)\nonumber \\
+  &= - \cos2 \left(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}} \right)\label{eq:quantum3}
+\end{align}
+
+式\eqref{eq:quantum3}を用いて相関関数$S$ (式\eqref{eq:S})を考えると、
+\begin{align}
+  S &= \lvert \langle \alpha_2\beta_1 \rangle + \langle \alpha_2\beta_2 \rangle \rvert + \lvert \langle \alpha_1\beta_1 \rangle - \langle \alpha_1\beta_2 \rangle \rvert \nonumber\\
+  &= \left| - \cos2 \left(\Phi_{\mathbf{a_2}} - \Phi_{\mathbf{b_1}} \right) - \cos2 \left(\Phi_{\mathbf{a_2}} - \Phi_{\mathbf{b_2}} \right) \right| +\left| - \cos2 \left(\Phi_{\mathbf{a_1}} - \Phi_{\mathbf{b_1}} \right) + \cos2 \left(\Phi_{\mathbf{a_1}} - \Phi_{\mathbf{b_2}} \right) \right|\label{eq:quantum4}
+\end{align}
+
+式\eqref{eq:quantum4}が最大になるのは、$\Phi_{\mathbf{a_1}}=0$、$\Phi_{\mathbf{a_2}}=\frac{3}{8}\pi$、$\Phi_{\mathbf{b_1}}=\frac{1}{8}\pi$、$\Phi_{\mathbf{b_2}}=\frac{1}{4}\pi$のときであり、計算すると
+\begin{align}
+  S &= \lvert \langle \alpha_2\beta_1 \rangle + \langle \alpha_2\beta_2 \rangle \rvert + \lvert \langle \alpha_1\beta_1 \rangle - \langle \alpha_1\beta_2 \rangle \rvert \nonumber\\
+  &= \left| - \cos2 \left(\Phi_{\mathbf{a_2}} - \Phi_{\mathbf{b_1}} \right) - \cos2 \left( \Phi_{\mathbf{a_2}} - \Phi_{\mathbf{b_2}} \right) \right| +\left| - \cos2 \left(\Phi_{\mathbf{a_1}} - \Phi_{\mathbf{b_1}} \right) + \cos2 \left(\Phi_{\mathbf{a_1}} - \Phi_{\mathbf{b_2}} \right) \right|\nonumber \\
+  &=2\sqrt{2}>2
+  \label{eq:quantum5}
+\end{align}
+
+となり、Bell-CHSH不等式が破れることがわかる。
+
+\subsubsection{スケール因子$\kappa$の導入}
+量子力学における相関関数の形は式\eqref{eq:quantum3}であった。これに対して局所実在論における相関関数の形を
+\begin{align}
+  \langle \alpha_i\beta_j \rangle= -\kappa \cos2 \left(\Phi_{\mathbf{a}_{\mathit{i}}}-\Phi_{\mathbf{b}_{\mathit{j}}} \right)\label{eq:locality2}
+\end{align}
+と仮定する。
+
+相関関数$S$を式\eqref{eq:locality2}の仮定の下で考え直すと、
+\begin{align}
+  S &= \lvert \langle \alpha_2\beta_1 \rangle + \langle \alpha_2\beta_2 \rangle \rvert + \lvert \langle \alpha_1\beta_1 \rangle - \langle \alpha_1\beta_2 \rangle \rvert \nonumber\\
+  &= \left| - \lvert \kappa \rvert \cos2 \left(\Phi_{\mathbf{a_2}} - \Phi_{\mathbf{b_1}} \right) - \lvert \kappa \rvert \cos2 \left(\Phi_{\mathbf{a_2}} - \Phi_{\mathbf{b_2}}\right) \right| \\
+  & \quad +\left| - \lvert \kappa \rvert \cos2 \left(\Phi_{\mathbf{a_1}} - \Phi_{\mathbf{b_1}} \right) + \lvert \kappa \rvert \cos2 \left(\Phi_{\mathbf{a_1}} - \Phi_{\mathbf{b_2}} \right) \right|\nonumber \\
+  &=\lvert \kappa \rvert 2\sqrt{2}
+  \label{eq:quantum6}
+\end{align}
+
+
+となり、
+\begin{align}
+  \kappa \leq \textstyle\frac{1}{\sqrt{2}} 
+\end{align}
+が、Bell-CHSH不等式、つまりは局所実在論が満たされる必要十分条件である。量子力学が正しいとき、式\eqref{eq:quantum4}より$\kappa=1$である.
+
+
+
+\newpage
+\subsection{コンプトン散乱による偏光測定}\label{subsec:comptom}
+本実験で用いる511 $\si{\kilo\electronvolt}$の$\gamma$線の波長は
+\begin{align} 
+	E &= \frac{hc}{\lambda}\\
+	h &: \text{プランク定数}\nonumber\\
+	c &: \text{光速}\nonumber 
+\end{align}
+のエネルギー$E$と波長$\lambda$の関係式から約2.43 $\si{\pico\meter}$である。一般に短波長の$\gamma$線では偏光方向の直接測定は困難であるため、偏光方向依存性があるコンプトン散乱断面積を測定することで偏光方向の間接的に測定する。
+
+偏光光子のコンプトン散乱微分断面積$\sigma$は、次のKlein-仁科の公式により与えられる。
+\begin{align}
+	\frac{d \sigma} {d \Omega} = \frac 12 r_e^2 \left( \frac{E^2} {E_0^2} \right) (\gamma - 2\sin^2 \theta \cos^2 \eta)
+\label{klein-nishina}
+\end{align}
+\begin{align}
+  \hspace{4em}r_e&: \text{古典電子半径}\nonumber \\
+               E &: \text{散乱後の光子エネルギー}\nonumber \\
+              E_0&: \text{散乱前の光子エネルギー}\nonumber \\
+  				 \gamma&: \text{Lorentz因子}\nonumber \\
+  				 \theta&: \text{散乱角}\nonumber \\
+  					 \eta&: \text{偏光角}\nonumber
+\end{align}
+
+% \begin{figure}[htbp]
+% 	\centering
+% 	% \includegraphics[width=0.8\linewidth]{../FIGURE/diagram.png}
+% 	\caption{文字説明の図}
+% 	\label{fig:variable_explanation}
+% \end{figure}
+
+本実験で用いる光子対は対消滅により生成され、その過程でそれぞれの偏光状態は制限されないため全ての偏光状態の重ね合わせである無偏光光子と見なすことができる。
+Klein-仁科の公式で与えられるコンプトン散乱断面積$\sigma$は偏光光子についてのものであり、無偏光光子についてはその重ね合わせを考慮する必要がある。2つの測定軸を用意すると任意の偏光状態は軸方向を基底とした線型結合で表すことができ、軸方向で偏光状態を観測すると1つの軸方向に偏光した直線偏光として振る舞うのでKlein-仁科の公式が適用できるようになる。全ての偏光方向でコンプトン散乱断面積$\sigma$を求め、その方向に観測される確率をかけて期待値を求めることで、無偏光光子のコンプトン散乱断面積$\sigma$が求められる。
+
+\subsubsection{ある測定軸で観測した時のコンプトン散乱断面積$\sigma$の期待値}
+図\ref{fig:diagram}のような実験装置で測定軸を2つずつ用意し、式\eqref{eq:quantum}のような状態の光子の偏光方向を観測することを想定する。
+観測時に2つの測定軸それぞれに定まる確率は次の方法で計算できる。\\
+
+($\alpha$, $\beta$) = ($+1$, $+1$)と測定される確率を$p_{++}$とし、同様に$p_{+-}$、$p_{-+}$、$p_{--}$を定義する。測定結果は4つのいずれかになるので、確率の性質より
+\begin{align}
+	p_{++} + p_{+-} + p_{-+} + p_{--} = 1
+\end{align}
+また検出器A、Bを入れ替える操作に対する対称性から
+\begin{align}
+	p_{+-} = p_{-+}
+\end{align}
+さらに検出器A、Bの測定軸を同じ角度回転させる操作に対する対称性から
+\begin{align}
+	p_{++} = p_{--}
+\end{align}
+$\alpha$、$\beta$の積の期待値$\langle \alpha \beta \rangle$は
+\begin{align}
+	\langle \alpha \beta \rangle 
+	&= (+1) \cdot (+1) \cdot p_{++} + (+1) \cdot (-1) \cdot p_{+-} + (-1) \cdot (+1) \cdot p_{-+} + (-1) \cdot (-1) \cdot p_{--} \notag \\
+	&= p_{++} -p_{+-} -p_{-+} +p_{--}
+\end{align}
+
+一方量子力学に基づく仮定から
+\begin{align}
+  \langle \alpha \beta \rangle= -\kappa \cos 2(\Phi_a- \Phi_b)
+\end{align}
+であるので、これらの要請から各確率を計算すると次のように表せる。
+\begin{align}
+	p_{++} = p_{--} &= \frac{1 -\kappa \cos 2(\Phi_a -\Phi_b)}{4}, \notag \\
+	p_{+-} = p_{+-} &= \frac{1 +\kappa \cos 2(\Phi_a -\Phi_b)}{4}
+\end{align} \\
+
+$\alpha$、$\beta=+1$の時、$x$、$x'$偏光となり偏光方向は実験座標系$(X,Y,Z)$を基準とする角度$\Phi_a$、$\Phi_b$方向である。また、$\alpha$、$\beta=-1$の時$y$、$y'$偏光となり偏光方向は$\Phi_a + \pi/2$、$\Phi_b + \pi/2$方向である。
+
+検出器A, Bのコンプトン散乱角を$\theta_a$、$\theta_b$とすると、ある測定軸で観測した時のコンプトン散乱断面積$\sigma$の期待値$\left\langle P' (\theta_a,\, \theta_b,\, \phi,\, \Phi_a,\, \Phi_b) \right\rangle$は次のように表せる。
+\begin{align}
+  &\phantom{==} \left\langle P' (\theta_a,\, \theta_b,\, \phi,\, \Phi_a,\, \Phi_b) \right\rangle \notag \\ 
+  &= \quad p_{++} \cdot \frac{d \sigma}{d \Omega} (\theta_a,\, -\Phi_a) \cdot \frac{d \sigma}{d \Omega} (\theta_b,\, \phi - \Phi_b) \notag \\ 
+  &\quad + p_{+-} \cdot \frac{d \sigma}{d \Omega} (\theta_a,\, -\Phi_a) \cdot \frac{d \sigma}{d \Omega} (\theta_b,\, \phi - \Phi_b - \pi/2) \notag \\ 
+  &\quad + p_{-+} \cdot \frac{d \sigma}{d \Omega} (\theta_a,\, -\Phi_a - \pi/2) \cdot \frac{d \sigma}{d \Omega} (\theta_b,\, \phi - \Phi_b) \notag \\ 
+  &\quad + p_{--} \cdot \frac{d \sigma}{d \Omega} (\theta_a,\, -\Phi_a - \pi/2) \cdot \frac{d \sigma}{d \Omega} (\theta_b,\, \phi - \Phi_b - \pi/2) \notag \\ 
+  &= \left(\frac{1}{2} r_e^2 \left( \frac{E_a^2}{E_0^2} \right) \right) \cdot \left(\frac{1}{2} r_e^2 \left( \frac{E_b^2}{E_0^2} \right) \right) \cdot \left( \frac{1}{4} \right) \notag \\
+	&\quad \cdot \bigl\{
+	(1 - \kappa \cos2(\Phi_a - \Phi_b)) (\gamma_a - 2\sin^2 \theta_a \cos^2 (-\Phi_a)) (\gamma_b - 2\sin^2 \theta_b \cos^2 (\phi - \Phi_b)) \notag \\ 
+	&\quad + (1 + \kappa \cos2(\Phi_a - \Phi_b)) (\gamma_a - 2\sin^2 \theta_a \cos^2 (-\Phi_a)) (\gamma_b - 2\sin^2 \theta_b \cos^2 (\phi - \Phi_b - \pi/2)) \notag \\ 
+	&\quad + (1 + \kappa \cos2(\Phi_a - \Phi_b)) (\gamma_a - 2\sin^2 \theta_a \cos^2 (-\Phi_a -\pi/2)) (\gamma_b - 2\sin^2 \theta_b \cos^2 (\phi - \Phi_b)) \notag \\ 
+	&\quad + (1 - \kappa \cos2(\Phi_a - \Phi_b)) (\gamma_a - 2\sin^2 \theta_a \cos^2 (-\Phi_a -\pi/2)) (\gamma_b - 2\sin^2 \theta_b \cos^2 (\phi - \Phi_b - \pi/2)) 
+	\bigr\} \notag \\
+  &= \frac{1}{16} r_e^4 \left( \frac{E_a^2 E_b^2}{E_0^4} \right) \bigl\{ (\gamma_a -\sin^2 \theta_a) (\gamma_b -\sin^2 \theta_b) -\kappa \sin^2 \theta_a \sin^2 \theta_b \cos 2(\Phi_b - \Phi_a) \cos 2\Phi_a \cos 2(\phi - \Phi_b) \bigr\}
+\end{align}
+
+ただし、
+\begin{gather}
+	E_a = \frac{E_0}{1 +(1 -\cos\theta_a)\frac{E_0}{m_e c^2}},\, E_b = \frac{E_0}{1 +(1 -\cos\theta_b)\frac{E_0}{m_e c^2}} \notag \\
+	\gamma_a = \frac{E_a}{E_0} +\frac{E_0}{E_a},\, \gamma_b = \frac{E_b}{E_0} +\frac{E_0}{E_b}
+\end{gather}
+である。
+
+\subsubsection{全ての偏光方向についてのコンプトン散乱断面積$\sigma$の期待値}
+偏光状態の重ね合わせを考慮すると、全ての偏光方向についてのコンプトン散乱断面積$\sigma$の期待値$\left\langle P (\theta_a,\, \theta_b,\, \phi) \right\rangle$は次のように表せる。
+\begin{align}
+	\langle P (\theta_a,\, \theta_b,\, \phi) \rangle
+	= \frac{1}{\pi} \int_{0}^{\pi} d\Phi_a \frac{1}{\pi} \int_{0}^{\pi} d\Phi_b \langle P' (\theta_a,\, \theta_b,\, \phi,\, \Phi_a,\, \Phi_b) \rangle \label{eq:expected}
+\end{align}
+
+ここで$\tilde{x}$軸に対し角度$\tilde{\phi}$傾いた偏光方向を持つ状態を考える。それを$\ket{\tilde{\phi}}$とすると
+\begin{align}
+	\ket{\tilde{\phi}}
+	&= \cos \tilde{\phi} \ket{\tilde{x}} + \sin \tilde{\phi} \ket{\tilde{y}} \notag \\
+	&=
+	\begin{pmatrix}
+		\cos \tilde{\phi} \\
+		\sin \tilde{\phi}
+	\end{pmatrix}
+\end{align}
+となり、密度行列は
+\begin{align}
+	\ket{\tilde{\phi}} \bra{\tilde{\phi}} &= 
+	\begin{pmatrix}
+		\cos \tilde{\phi} \\
+		\sin \tilde{\phi}
+	\end{pmatrix}
+	\begin{pmatrix}
+		\cos \tilde{\phi} & \sin \tilde{\phi}
+	\end{pmatrix} \notag \\
+	&= 
+	\begin{pmatrix}
+		\cos^2 \tilde{\phi} & \cos \tilde{\phi} \sin \tilde{\phi} \\
+		\cos \tilde{\phi} \sin \tilde{\phi} & \sin^2 \tilde{\phi}
+	\end{pmatrix}
+\end{align}
+である。偏光方向についての積分は
+\begin{align}
+	\frac{1}{\pi} \int_{0}^{\pi} d\tilde{\phi} \ket{\tilde{\phi}} \bra{\tilde{\phi}}
+	&= \frac{1}{\pi} \int_{0}^{\pi} d\tilde{\phi}
+	\begin{pmatrix}
+		\cos^2 \tilde{\phi} & \cos \tilde{\phi} \sin \tilde{\phi} \\
+		\cos \tilde{\phi} \sin \tilde{\phi} & \sin^2 \tilde{\phi}
+	\end{pmatrix} \notag \\
+	&= \frac12 
+	\begin{pmatrix}
+		1 & 0 \\
+		0 & 1
+	\end{pmatrix} \notag \\
+	&= \frac12 (\ket{\tilde{x}} \bra{\tilde{x}} + \ket{\tilde{y}} \bra{\tilde{y}})
+\end{align}
+となるので、無偏光光子の平均的な振る舞いは$\ket{\tilde{x}}$偏光と$\ket{\tilde{y}}$偏光の算術平均で表せる。よって式\eqref{eq:expected}は
+\begin{align}
+	&\phantom{==} \langle P (\theta_a,\, \theta_b,\, \phi) \rangle \notag \\
+	&= \frac14 (\langle P' (\theta_a,\, \theta_b,\, \phi,\, 0,\, 0) \rangle + \langle P' (\theta_a,\, \theta_b,\, \phi,\, \pi/2,\, 0) \rangle + \langle P' (\theta_a,\, \theta_b,\, \phi,\, 0,\, \pi/2) \rangle + \langle P' (\theta_a,\, \theta_b,\, \phi,\, 0,\, 0) \rangle) \notag \\
+	&= \frac{1}{64} r_e^4 \left( \frac{E_a^2 E_b^2}{E_0^4} \right) \bigl\{ (\gamma_a -\sin^2 \theta_a) (\gamma_b -\sin^2 \theta_b) -\kappa \sin^2 \theta_a \sin^2 \theta_b \cos 2\phi \bigr\}
+\end{align}
+となる。
+
+$\theta_a$、$\theta_b$が既知の時コンプトン散乱する確率は定数$C_1$、$C_2$を用いると
+\begin{align}
+	P(\phi) \propto C_1 - C_2 \cos 2\phi\label{eq:theory_a-bcos}
+\end{align}
+と表され、実験により$C_1$と$C_2$を求めその比から$\kappa$を求めることができる。
+
+
+\subsection{コンプトン散乱の運動学}\label{comptom_moment}
+% 一般に短波長の$\gamma$線では偏光方向の直接測定は困難であるため、偏光方向依存性があるコンプトン散乱断面積$\sigma$を測定することで偏光方向の間接測定をする。
+実際の測定で得られるのはエネルギーのみであるため、式\eqref{klein-nishina}を用いるために、コンプトン散乱による散乱光子のエネルギーと散乱角の関係を求める。コンプトン散乱とは、光子と電子の弾性散乱である(図\ref{fig:comptom}) 散乱後の光子は電子にエネルギーを与えることにより、散乱前よりエネルギーが減少する。
+
+\begin{figure}[b!]
+	\centering
+	\includegraphics[width=0.7\columnwidth,angle=270]{../FIGURE/comptom.pdf}
+	\caption{コンプトン散乱}
+	\label{fig:comptom}
+\end{figure}
+
+
+% 光子の散乱角を$\theta$、反跳電子の反跳角を$\theta^{\prime}$とする。また、散乱前の光子のエネルギーを$E$、散乱後の光子の波長を$E'$、散乱後の電子の速度を$v$とする。エネルギー保存則より、
+% \begin{align}
+% 	E = E^{\prime} + (\sqrt{(m_e c^2)^2 + (m_e v c)^2} - m_e c^2)
+% \end{align}
+
+% と書ける。光子の運動量は$p=\frac{E}{c}$である。光子の進行方向と、それに垂直な方向における運動量保存則より
+
+% \begin{align}
+%   \frac{E}{c}=\frac{E'}{c}\cos{\theta'}+m_{e}v\cos{\theta}\\
+% 	0=\frac{E'}{c}\sin{\theta'}-m_{e}v\sin{\theta}
+% \end{align}
+
+% と書ける。これを整理すると、
+
+%   \begin{equation}
+% 	E'= \frac{E}{1 + \frac{E}{m_e c^2}(1 - \cos \theta)}
+% 	\end{equation}
+	
+% 	\begin{equation}
+% 	\frac{1}{2} m_e v^2 = E - E'
+% 	\end{equation}
+
+% となり、散乱角$\theta$と散乱光子のエネルギーの関係が求まった。本実験では\Na の$\beta^+$崩壊によって生じる511 \keV の$\gamma$線を入射光子として用いた。
+
+
+
+散乱前の$\gamma$線、電子、散乱後の$\gamma$線、電子の4元運動量をそれぞれ$P^{\ \mu}_1,\dots,P^{\ \mu}_4$とする。
+\begin{align}
+E_{\gamma}=E_{\gamma}^{\prime}+T_e^{\prime}
+\end{align}
+
+散乱前は
+\begin{align}
+\begin{split}  
+P^{\ \mu}_1&=\qty(\frac{E_{\gamma}}{c},\bm{p_1})\\
+P^{\ \mu}_2&=\qty(\frac{E_{e}}{c},0)
+\end{split}
+\end{align}
+
+散乱後は
+\begin{align}
+\begin{split} 
+P^{\ \mu}_3&=\qty(\frac{E_{\gamma}^{\prime}}{c},\bm{p_3})\\
+P^{\ \mu}_4&=\qty(\frac{E_{e}^{\prime}}{c},\bm{p_4})\label{p2}
+\end{split}
+\end{align}
+
+散乱前、電子は静止しているので、 
+\begin{align}
+\begin{split}
+E_e&=m_ec^2\\
+\therefore \frac{E_e}{c}&=m_ec
+\end{split}
+\end{align}
+
+$\gamma$線(光子)は質量0より、
+\begin{align}
+\begin{split}
+P^{\ \mu}_3P_{3\mu}&=\qty(\frac{E_{\gamma}^{\prime}}{c})^2-\bm{p_3}^2\ \Rightarrow\ p_3=\frac{E_{\gamma}^{\prime}}{c}\\
+\therefore\ \bm{p_3}&=\qty(\frac{E_{\gamma}^{\prime}}{c}\cos\theta,\frac{E_{\gamma}^{\prime}}{c}\sin\theta,0)
+\end{split}
+\end{align}
+
+4元運動量の保存より、
+\begin{align}
+\begin{split}
+P^{\ \mu}_1+P^{\ \mu}_2&=P^{\ \mu}_3+P^{\ \mu}_4\\
+P^{\ \mu}_4&=P^{\ \mu}_1+P^{\ \mu}_2-P^{\ \mu}_3
+\end{split}
+\end{align}
+
+両辺の内積をとると
+\begin{align}
+\begin{split}
+P^{\ \mu}_4P_{4\ \mu}&=P^{\ \mu}_1P_{1\ \mu}+P^{\ \mu}_2P_{2\ \mu}+P^{\ \mu}_3P_{3\ \mu}+2P^{\ \mu}_1P_{2\ \mu}-2P^{\ \mu}_2P_{3\ \mu}-2P^{\ \mu}_3P_{1\ \mu}\\
+m_e^2c^2&=0+m_e^2c^2+0+2m_eE_{\gamma}-2m_eE_{\gamma}^{\prime}-2\ \qty(\frac{E_{\gamma}E_{\gamma}^{\prime}}{c^2}-\frac{E_{\gamma}E_{\gamma}^{\prime}}{c^2}\cos\theta)\\
+\therefore\ E_{\gamma}^{\prime}&=E_{\gamma}\ \qty(1+(1-\cos\theta)\frac{E_{\gamma}}{m_ec^2})^{-1}
+\end{split}
+\end{align}
+
+よってコンプトン散乱により生じる反跳電子の運動エネルギー$T_e^{\prime}$、散乱光子のエネルギー$E_{\gamma}^{\prime}$、散乱角$\theta$の関係はエネルギー保存、運動量保存より以下のように求まる。
+\begin{align}
+E_{\gamma}^{\prime}&=E_{\gamma}\ \qty(1+\frac{E_{\gamma}}{m_ec^2}(1-\cos\theta))^{-1} \label{eq:Egamma}\\
+T_e^{\prime}&=E_{\gamma}-E_{\gamma}^{\prime}=E_{\gamma}\ \qty(1+\frac{m_ec^2}{E_{\gamma}(1-\cos\theta)})^{-1} \label{T_e}
+\end{align}
+ここで$m_e$は電子の質量で$m_ec^2=0.511$ MeVである. 
+
+
+% また, 散乱光子の角度分布は以下のKlein-Nishinaの公式より求められる.
+% \begin{align}
+% \frac{\dd\sigma}{\dd\Omega}=r_e^2\ \qty{\frac{1}{1+\alpha(1-\cos\theta)}}^2\ \qty(\frac{1+\cos^2\theta}{2})\ \qty[1+\frac{\alpha^2(1-\cos\theta)^2}{(1+\cos^2\theta)\{1+\alpha(1-\cos\theta)\}}]
+% \label{nishina}
+% \end{align}
+% $r_e$は古典電子半径, $\ds\alpha=\frac{E_{\gamma}}{m_ec^2}$である.
+
+
+
+\end{document}
