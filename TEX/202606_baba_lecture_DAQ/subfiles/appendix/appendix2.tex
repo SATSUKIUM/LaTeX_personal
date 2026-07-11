@@ -1,0 +1,129 @@
+\documentclass[../../main.tex]{subfiles}
+\usepackage{amsmath,amsthm,amsfonts,latexsym,mathtools,bm,ulem,amssymb,tikz,circuitikz,graphicx}
+\usepackage{times}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{here}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{mhchem}
+\usepackage{upgreek}%ギリシャ文字を立てるのだ
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\usepackage{wrapfig}%文中に画像を入れる
+\begin{document}
+\FloatBarrier
+\section{追加実験}
+
+\subsection{本実験の測定期間と環境モニタリング}\label{sec:exp5_run_period}
+
+				%大阪大学理学部棟H009実験室にて$20$ \si{\degreeCelsius}の暖房をかけながら、2025年1月--日から2025年2月--日の間の合計約304時間、データ取得を行った。データ取得中のDAQレートは概ね6 \si{\hertz}であり、総取得データ数は6,206,964であった。
+				以下の図\ref{fig:temp}は実験室、特にPMTの周囲の温度変動のグラフである。また、表\ref{table:temp}には温度変動の上下端と変動範囲を示した。これらを見ると、実験室の温度変動は3 \si{\degreeCelsius}以内に収まっていることがわかる。なお$\mathrm{A1}$のグラフが2025年1月1日14:00ほどを境に大きく変動しているが、他のセンサーの示す値が大きく変動していないことと地下にある実験室の温度が短時間に急変することは考えにくいため、センサーの電気的な接触異常等によるものと考えている。
+
+        %この時期の外気温は高くとも10度に満たず、暖房の$20$ \si{\degreeCelsius}というのはつまるところ実験室の温度を一定に保ったことにほかならない。
+
+				\begin{figure}[b]
+					\centering
+					\includegraphics[width=0.9\columnwidth]{../FIGURE/exp5/temp.pdf}
+					\caption{物理測定における実験室の温度変動}
+					\label{fig:temp}
+				\end{figure}
+
+
+				\begin{table}[b]
+					\centering
+					\caption{実験室の温度変動の上下端と変動範囲}\label{table:temp}
+					\begin{tabular}{c|cccc}
+						& A1 & A2$_{0^{\circ}}$ & S2 & S1 \\ \hline
+						最大温度 (\si{\degreeCelsius}) & 21.3 & 22.9 & 20.9 & 21.3 \\
+						最低温度 (\si{\degreeCelsius}) & 18.4 & 19.9 & 18.6 & 19.5 \\
+						温度変化の範囲 (\si{\degreeCelsius}) & 2.9 & 3.0 & 2.4 & 1.8 \\
+					\end{tabular}
+				\end{table}
+
+  \FloatBarrier
+  \subsection{解析手法: PMTの信号波形からのトリガータイミングの算出}\label{sec:PMT_discriCell}
+
+    取得された波形データにはトリガーセルから順番に電圧値が記録されているが、どのセルで実際にDAQしきい値を越えたのかは記録されていない。\ref{analysis}章で述べたように、波形をトリガーセルから順番に参照していくとき、初めて3連続でトリガーしきい値を越えた場合に、その3つの連続したセルのうち、最初のセルをDAQトリガーが掛かってたトリガーセルと記録した。
+    %例えば、図\ref{fig:exp5_waveform_example_discriLine}のような波形でいうところの赤い線(DAQで想定したしきい値)と青い線(波形)の交わるセルが何番目か取得する。
+    % \begin{figure}[tbp]
+    %   \centering
+    %   \includegraphics[width=0.85\columnwidth]{../FIGURE/exp5/waveform_example_discriLine.pdf}
+    %   \caption{PMTの波形の例。横軸にはトリガーセルから数えたセル番号、縦軸にそのセルに記録された電圧値をとっている。赤い線はDAQのトリガーしきい値$-20$ \si{\milli\volt}であり、赤い線と青い線が交わるときのセルが何番目か知りたい。}
+    %   \label{fig:exp5_waveform_example_discriLine}
+    % \end{figure}
+    
+  
+
+    このアルゴリズムがしっかりと動いているかの例として、物理測定(\ref{exp5}章)にて取得したデータの一部(これをデータセット\ref{fig:exp5_waveform_example_colz}と呼ぶ。)からそのトリガータイミングのセルを計算してみる。図\ref{fig:exp5_waveform_example_colz}に793527イベントだけ散乱体S1のPMT波形の重ね描きを示した。横軸が150弱のあたりで多くのイベントが閾値$-20$ \si{\milli\volt}を横切っている傾向が見える。この波形に対して上記のアルゴリズムでトリガーセルを計算し、その分布を図\ref{fig:exp5_triggercell_example01}に示した。トリガータイミングのセルから数えて150弱のあたりに鋭いピークがあることが分かる。横軸が0のところにもカウントがあるが、これは波形の記録が始まる前に立ち上がったイベントが全て0として記録されている。そのためとても多く見えるが、実際は波形の読み出しが始まる前にパルスが立ち上がったものの合算にすぎない。
+
+    %\footnote{内部的には、Run\_005.datです。})
+
+    以下、このアルゴリズムで計算したトリガーセルを波形の立ち上がりのタイミングとする。
+    \begin{figure}[tbp]
+      \centering
+      \includegraphics[width=0.85\columnwidth]{../FIGURE/exp5/waveform_example_colz.pdf}
+      \caption{散乱体S1のPMTの波形の例。(2次元ヒストグラム) 横軸にはトリガーセルから数えたセル番号、縦軸にそのセルに記録された電圧値をとっている。色の凡例は密度を表しており、青色の領域より黄色の領域の密度が高い。}
+      \label{fig:exp5_waveform_example_colz}
+    \end{figure}
+    \begin{figure}[tbp]
+      \centering
+      \includegraphics[width=0.85\columnwidth]{../FIGURE/exp5/triggercell_example01.pdf}
+      \caption{図\ref{fig:exp5_waveform_example_colz}のトリガータイミングのセルの分布。横軸は図\ref{fig:exp5_waveform_example_colz}と同じである。}
+      \label{fig:exp5_triggercell_example01}
+    \end{figure}
+
+    波形の立ち上がりのタイミングを計算できた。タイムウォークまで見えているかを確かめる。データセット\ref{fig:exp5_waveform_example_colz}を使って、図\ref{fig:exp5_adc_time_huruno1}に散乱体S1のADC値と波形立ち上がりのタイミングの分布を示した。
+    
+    この図を理解するためには次の極端な例を考えなければならない。例えばDAQロジックに入っている散乱体S1, S2と吸収体A1それぞれからDRS4 Evaluation Boardまでの特性インピーダンス$50$ \si{\ohm}のケーブル長さが$0$ m, $10$ m, $20$ mだったとする。この場合、もしもS1, S2, A1から同時に信号が出たとしてもDRS4にインプットされるまでにそれぞれ$50$ nsの差が生じる。この場合、DRS4 Evaluation BoardにおいてDAQトリガーが発行されるのは決まって$A1$の立ち上がるタイミングである。\sout{3つのインプットのうち、一番遅い信号がDAQロジックの最後のピースを埋めるのである。}次にS1, S2, A1からのケーブルがそれぞれ$0$m, $1$ m, $2$ mの例を考える。この場合もA1がDAQトリガーを発行するので、記録される波形を見ればA1の立ち上がりのタイミングは変わらないが、S1, S2の立ち上がりは遅く見える。\sout{とにかく一番遅く来たカウンターの信号がDAQトリガーの信号を発行するのである。}記録される各イベントにおいて、S1かS2かA1のどれか1つだけはセルフトリガーでDAQされている。
+    
+    その認識のうえ、図\ref{fig:exp5_adc_time_huruno1}, 図\ref{fig:exp5_adc_time_huruno2}, 図\ref{fig:exp5_adc_time_sato}を見る。(全てデータセット\ref{fig:exp5_waveform_example_colz}を使用している。) 図\ref{fig:exp5_triggercell_example01}では単一のピークであった波形立ち上がりのタイミングが、ADCとの関係を見ると図\ref{fig:exp5_adc_time01}の右端で2つの系列に分かれていることが分かる。(図\ref{fig:exp5_adc_time02}で赤い線を引いた斜めの系列と、その右で上下方向に伸びる系列) ここでじっくりと図を見ると赤い線の斜めの系列ではパルス立ち上がりのタイミングとADCに関係があり、その右の系列ではそれらに関係がないことが分かる。赤い線の系列ではADCが大きいほどパルス立ち上がりのタイミングが早くシフトしている。これをパルスのタイムウォークであると考えた。そして、右の系列においてはそれより右に分布がないことから、$S1$のセルフトリガーのイベントであると考えた。
+
+    S2を見る。図\ref{fig:exp5_adc_time_huruno2}では系列が1つしか見られないが、上下方向に分布しているために$S2$のセルフトリガーのイベントが多いのだと解釈した。。
+
+    A1を見る。図\ref{fig:exp5_adc_time_sato}を見ると、S1よりわかりやすく斜めの系列と上下方向に伸びる系列が見える。図\ref{fig:exp5_adc_time04}で赤い線を引いた斜めの系列ではタイムウォークが見えており、その右の系列ではA1のセルフトリガーであるためにタイムウォークが存在しない。
+
+    \begin{figure}[tbp]
+      \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{../FIGURE/exp5/time_walk/huruno1_wo_title.pdf}
+        \subcaption{横軸に波形の電圧値の和、つまりパルスの電荷量に比例した量、縦軸に波形立ち上がりのタイミング(セル)をとっている。}\label{fig:exp5_adc_time01}
+      \end{minipage}
+      \hspace{0.04\columnwidth} % ここで隙間作成
+      \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{../FIGURE/exp5/time_walk/huruno1_with_title_with_line.pdf}
+        \subcaption{図\ref{fig:exp5_adc_time01}に系列の補助線を引いた図}\label{fig:exp5_adc_time02}
+      \end{minipage}
+      \caption{散乱体S1のADCと波形立ち上がりの関係}\label{fig:exp5_adc_time_huruno1}
+    \end{figure}
+
+    \begin{figure}[tbp]
+      \centering
+      \includegraphics[width=0.85\columnwidth]{../FIGURE/exp5/time_walk/huruno2_wo_title.pdf}
+      % \subcaption{横軸に波形の電圧値の和、つまりパルスの電荷量に比例した量、縦軸に波形立ち上がりのタイミング(セル)をとっている。}\label{fig:exp5_adc_time01}
+
+      \caption{散乱体S2のADCと波形立ち上がりの関係。横軸に波形の電圧値の和、つまりパルスの電荷量に比例した量、縦軸に波形立ち上がりのタイミング(セル)をとっている。}\label{fig:exp5_adc_time_huruno2}
+    \end{figure}
+
+    \begin{figure}[tbp]
+      \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{../FIGURE/exp5/time_walk/sato_wo_title.pdf}
+        \subcaption{横軸に波形の電圧値の和、つまりパルスの電荷量に比例した量、縦軸に波形立ち上がりのタイミング(セル)をとっている。}\label{fig:exp5_adc_time03}
+      \end{minipage}
+      \hspace{0.04\columnwidth} % ここで隙間作成
+      \begin{minipage}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\columnwidth]{../FIGURE/exp5/time_walk/sato_with_title_with_line.pdf}
+        \subcaption{図\ref{fig:exp5_adc_time03}に系列の補助線を引いた図}\label{fig:exp5_adc_time04}
+      \end{minipage}
+      \caption{吸収体S2のADCと波形立ち上がりの関係}\label{fig:exp5_adc_time_sato}
+    \end{figure}
+
+    DAQロジックに入っている散乱体S1、S2と吸収体A1からのケーブル長の差は長くとも数cmに収まるようにセットアップを組んだのにも関わらず、S2ではセルフトリガーが主な成分であることが図\ref{fig:exp5_adc_time_huruno2}より読み取れる。考えられる要因として、S1とS2には同じ型番のPMTを用いたがA1には違う型番のPMTを用いたことと、S1とS2のゲインの個体差が挙げられる。S1、S2にはR878、A1にはR329-02を用いており、内部構造が違っている。また、S1とS2には同じPMTを用いているが、図\ref{fig:exp5_adc_time01}と図\ref{fig:exp5_adc_time_huruno2}の横方向に伸びた系列のADC値を見るとS2よりS1のほうが少しゲインが高いために、S1とS2間のタイムウォークによってS2のセルフトリガーが主になったのではないかと考えられる。
+ 
+%\footnote{ダイノードの数の違いでダイノード間電圧差で電子の移動速度が違ってるんじゃないかって思ったけど、よくわからなかった。}
+
+
+\end{document}

@@ -1,0 +1,179 @@
+\documentclass[a4paper,dvipdfmx,titlepage,oneside]{jsarticle}
+% \documentclass[a4paper,dvipdfmx,titlepage,oneside,draft]{jsarticle}
+\usepackage{subfiles}
+\usepackage{amsmath,latexsym,mathtools,bm,ulem,tikz,circuitikz,graphicx}
+\usepackage{times}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{here}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{upgreek}%ギリシャ文字を立てる
+% \usepackage{url}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,      % カラーリンクを有効化（枠ではなく色で表示）
+    linkcolor=blue,       % 目次や文書内リンクの色
+    citecolor=blue,        % 文献引用の色
+    filecolor=blue,    % ファイルリンクの色
+    urlcolor=blue      % URLリンクの色
+}
+\usepackage{multirow}
+%Tcolorboxを使う
+\usepackage{tcolorbox}
+\usepackage{placeins}
+% \lstset{
+% 	basicstyle={\ttfamily},
+% 	identifierstyle={\small},
+% 	commentstyle={\smallitshape},
+% 	keywordstyle={\small\bfseries},
+% 	ndkeywordstyle={\small},
+% 	stringstyle={\small\ttfamily},
+% 	frame={tb},
+% 	breaklines=true,
+% 	columns=[l]{fullflexible},
+% 	numbers=left,
+% 	xrightmargin=0zw,
+% 	xleftmargin=3zw,
+% 	numberstyle={\scriptsize},
+% 	stepnumber=1,
+% 	numbersep=1zw,
+% 	lineskip=-0.5ex
+% }
+\tcbuselibrary{breakable,skins,theorems}
+
+\usepackage{mhchem}
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\usepackage{wrapfig}%文中に画像を入れる
+\newcommand{\keV}{\si{\kilo\electronvolt}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\Na}{$^{22}\text{Na}$}
+\newcommand{\Eu}{$^{152}\text{Eu}$}
+\newcounter{subsubsubsectioncounter}
+\setcounter{subsubsubsectioncounter}{0}
+\newcommand{\subsubsubsection}[1]{
+  \refstepcounter{subsubsubsectioncounter}
+  \paragraph{Subsubsubsection \thesubsubsubsectioncounter: #1}\mbox{}\\
+}
+% \newcommand{\s1}{$\mathrm{S1}$}
+% \newcommand{\s2}{$\mathrm{S2}$}
+%\newcommand{\A1}{$\mathrm{A1}$}
+%\newcommand{\A2_0}{$\mathrm{A2}_{0^{\circ}}$}
+% \newcommand{\A1_45}{$\text{A2}_{45^{\circ}}$}
+% \newcommand{\A1_90}{$\text{A2}_{90^{\circ}}$}
+% \newcommand{\A1_135}{$\text{A2}_{135^{\circ}}$}
+% \newcommand{\A1_180}{$\text{A2}_{180^{\circ}}$}
+
+\usepackage{amsthm,amsfonts,amssymb}
+
+\title{\large{2024年度 卒業論文}\\ポジトロニウムの崩壊による$\upgamma$線を用いたBellの不等式の破れの検証}
+\author{大阪大学 青木研究室\\
+鵜飼　絵里花\\加島　駿一\\吉沢　直道\\宮井　陽生}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+% \section{本研究で行ったこと}
+% 	\subsection{概要}
+% 		本研究の目的は、局所実在論に基づいたBellの不等式の破れを検証することである。粒子が局所実在性を持つか確かめることで、古典論と量子論のどちらで記述されるのかを明らかにすることができる。本研究ではBellの不等式の破れを検証する実験を行った。
+
+% 		2粒子系の測定において、それぞれの粒子の物理量がある確率分布に従って測定されるとき、互いの測定値の「相関」の上限はBellの不等式により与えられる。ある粒子の状態を2つの離れた場所でそれぞれ2通りの方法で測定することを考える。それぞれの場所で、$\pm1$の値をとる、ある物理量$\alpha_i,\,\beta_j$を測定する。一方の測定結果がもう一方の結果に影響しないとする「局所性」と、観測前から粒子の状態は定まっており決まった物理量を持つとする「実在性」を認める局所実在論では、Bellの不等式を簡略化したCHSH不等式
+% 		\begin{align}
+% 			\abs{S}=\abs{\ev{\alpha_1\beta_1}+\ev{\alpha_1\beta_2}}+\abs{\ev{\alpha_2\beta_1}-\ev{\alpha_2\beta_2}}\leq 2
+% 		\end{align}
+% 		が成り立つ。しかし、量子もつれ状態にある2粒子系において不等式は破れ、局所実在論では説明できない場合があることが知られている。古典論の範疇を超えた量子論では、$S$は$2\sqrt{2}$以下となる。
+% 		ここでパラメータ$\kappa$を用いて$\abs{S}\leq2\sqrt{2}\ \kappa$とすると、局所実在論が正しければ$\kappa\leq\frac{1}{\sqrt{2}}$、量子論が正しければ$\kappa=1$となるはずである。実験的に$\kappa$を測定することで、どの立場が正しいか知ることができる。
+	
+% 		量子もつれ系として、$^{22}\text{Na}$原子核の崩壊によって作られるパラポジトロニウムの崩壊由来の光子対を用いる。この光子対はエネルギーが単色であるが、波長の短さから偏光板などでの偏光状態の測定ができないため、コンプトン散乱微分断面積が光子の偏光面と散乱面のなす角に依存性があることを利用した。本実験では、放射線源からback-to-backに放出された2本のガンマ線のコンプトン散乱を同時計測し、その計数率の方位角依存性を計測することで、2光子の偏光状態の「相関」を測定する。計数率$R$とコンプトン散乱方位角$\phi$の依存性を、Klein-Nishinaの式から予想される式(\ref{eq:rate-phi})でフィッティングすることで、あるコンプトン散乱仰角での$\kappa$は求められる。
+% 		\begin{align}
+% 			R=p_0-p_1\cos2\phi,\quad\kappa\propto\frac{p_1}{p_0}\label{eq:rate-phi}
+% 		\end{align}
+
+% 		\vspace{-0.5cm}
+% 		\begin{figure}[H]
+% 			\begin{minipage}[c]{0.5\hsize}
+% 				\centering
+% 				\includegraphics[height=4cm]{../../ABSTRACT/TEX/figure/simulation.pdf}
+% 				\caption{予想されるコンプトン散乱方位角と計数率の関係}
+% 				\label{fig:simulation}
+% 			\end{minipage}
+% 			\begin{minipage}[c]{0.5\hsize}
+% 				\centering
+% 				\includegraphics[height=4cm]{../../ABSTRACT/TEX/figure/setup.png}
+% 				\caption{実験装置の概略図}
+% 				\label{fig:setup}
+% 			\end{minipage}
+% 		\end{figure}	
+
+% 		\vspace{-0.3cm}
+% 		他大学の卒業研究でも同じ原理で実験が行われたが、統計量不足などにより満足のいく結果は得られていない。そこで我々はより大きい吸収体を複数並べ、効率よく統計量を溜めることを試みた。また、細長いシンチレータを用いることで計数率のコンプトン散乱仰角依存性についても測定を行った。上図(図\ref{fig:setup})のように実験装置を組み立て、約1ヶ月の間測定を行った。パラメータ$\kappa$の値を求め、ベルの不等式の破れが検証できたかどうか報告を行う。
+
+% 	\newpage
+% 	日程とリストアップはメンバーでの行程管理用。提出次には消します。
+% 	\subsection{リストアップ}
+% 	\begin{itemize}
+% 		\item 研究モチベーション、実験原理
+% 		\item 実験概要
+% 		\item 実験のための準備
+% 		\begin{itemize}
+% 			\item GSO結晶のPMTへの固定
+% 			\begin{itemize}
+% 				\item GSO結晶の周囲の処理、アルミナイズドマイラーフィルム
+% 			\end{itemize}
+% 			\item PMT設置用のフレームの設計、寸法
+% 		\end{itemize}
+% 		\item 実験2(PMTパルス電荷量と$^{22}\text{Na}$線源とカウンターとの距離依存)
+% 		\begin{itemize}
+% 			\item 実験目的
+% 			\item 実験手法
+% 		\end{itemize}
+% 		\item 実験3(GSO結晶の$\upgamma$線ヒット位置とPMTパルス電荷量の関係)
+% 		\begin{itemize}
+% 			\item 実験目的
+% 			\item 実験手法
+% 		\end{itemize}
+% 		\item 実験1(エネルギー較正)
+% 		\begin{itemize}
+% 			\item 実験目的
+% 			\item 実験手法
+% 		\end{itemize}
+% 		\item 実験4(テストラン)
+% 		\begin{itemize}
+% 			\item 実験手法
+% 			\item 失敗の理由(こうすると、失敗する的な)
+% 			\item その改善案
+% 		\end{itemize}
+% 		\item 実験5(PhysicsRun)
+% 		\begin{itemize}
+% 			\item 実験手法
+% 			\item 実験結果
+% 			\item 考察
+% 		\end{itemize}
+		           
+	% \end{itemize}
+	\newpage
+	\subfile{subfiles/historical_background/background.tex}
+	\subfile{subfiles/theory/theory.tex}
+	%\subfile{subfiles/theory/theory2.tex}
+	\subfile{subfiles/preparation/preparation.tex}
+	\subfile{subfiles/analysis/analysis.tex}
+	\subfile{subfiles/exp5_PhysicsRun/exp5_PhysicsRun.tex}
+	\subfile{subfiles/exp6_efficiency/exp6_efficiency.tex}
+	% \subfile{subfiles/binary2tree/binary2tree.tex}
+	\subfile{subfiles/conclusion-future/conclusion-future.tex}
+	%\subfile{subfiles/feedback/feedback.tex}
+	\subfile{subfiles/citation/citation.tex}
+
+%ここから付録
+\begin{appendix}
+	\renewcommand{\appendixname}{} %
+	\subfile{subfiles/appendix/appendix1.tex}
+	\subfile{subfiles/exp3_GSO_adc/exp3_GSO_adc.tex}
+	\subfile{subfiles/exp2_distance/exp2_distance.tex}
+	\subfile{subfiles/exp1_energy_calb/exp1_energy_calb.tex}
+	\subfile{subfiles/appendix/appendix2.tex}
+	%\subfile{subfiles/exp4_test_run/exp4_test_run.tex}
+\end{appendix}
+\end{document}

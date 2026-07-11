@@ -1,0 +1,63 @@
+\documentclass[../../main.tex]{subfiles}
+\usepackage{amsmath,amsthm,amsfonts,latexsym,mathtools,bm,ulem,amssymb,tikz,circuitikz,graphicx}
+\usepackage{times}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{here}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{mhchem}
+\usepackage{upgreek}%ギリシャ文字を立てるのだ
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\usepackage{wrapfig}%文中に画像を入れる
+\begin{document}
+
+\section{解析手法}
+DRS4で取得したデータの解析手法について述べる。後述の解析に用いるためにトリガー時間、ADCSumの2つを求めた。トリガー時間はcoincidenceの判定、ADCSumは$\upgamma$線がカウンタで落としたエネルギーを求めるのに用いる。
+
+\subsection{トリガー時間}\label{sec:trigger_time}
+取得された波形データにはセルごとの電圧値が記録されているが、どのセルで実際にDAQしきい値を越えたのかは記録されていない。後の解析で使うためにパルス信号が何セル目でトリガーしきい値を越えたのかを取得する。図\ref{fig:waveform_example_discriLine}の例では、赤線(DAQで想定したしきい値)と青線(波形)の交わるセルが何番目か取得する。
+
+				\begin{figure}[H]
+					\centering
+					\includegraphics[height=6cm]{../FIGURE/exp5/waveform_example_discriLine.pdf}
+					\caption{PMTの波形の例。横軸はトリガーセルから数えたセル番号、縦軸はそのセルに記録された電圧値である。赤い線はDAQのトリガーしきい値$-20$ \si{\milli\volt}であり、赤い線と青い線が交わるときのセルを求めた。}
+					\label{fig:waveform_example_discriLine}
+				\end{figure}
+
+        波形をトリガーセルのはじめから順番に参照していくとき、初めて3セル連続でトリガーしきい値を越えた場合に、その3つの連続したセルのうち最初のセルをトリガーセルとした。これはPMTの出力パルスに存在するジッタを考慮し、信頼性を上げるためである。
+        予備実験では1 Gsps、本実験の物理測定では0.7 Gspsでデータ取得を行った。求めたトリガーセルからサンプリングレートを用いて時間に変換し、各イベントごとのトリガー時間を求めた。
+
+\subsection{ADCSum}
+図\ref{fig:NaIwaveform}, \ref{fig:GSOwaveform}のように、用いるシンチレータによって波形が異なる。減衰時間はNaIシンチレータは250 ns程度、GSOシンチレータは30 -- 60 ns程度である。
+
+データ取得始めの時間0 nsから、終わりの時間の40分の1すなわち30 / 36.6 ns(予備実験/物理測定)の範囲で電圧の値を足し、足した数で割ることでpedestalを求めた。減衰時間の違いから、NaIシンチレーションカウンタではトリガー時間を0 nsとして[-50,650] nsの700 nsの範囲、GSOシンチレーションカウンタではトリガー時間から[-50, 180] nsの230 nsの範囲で、各セルごとの電圧値からpedestalの値を引いた値の和をADCSumとした。
+
+%1 Gspsだと0 -- 1024 ns
+%0.7 Gspsだと0 -- 1463 ns
+
+%fPedestalTmin = fTime[0][0][0];
+%fPedestalTmax = fTime[0][0][1023] / 40.0;
+
+\begin{figure}[H]
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[height=5cm]{../FIGURE/analysis/NaIwaveform.png}
+    \caption{NaI(Tl)シンチレーションカウンタによる波形の例}
+    \label{fig:NaIwaveform}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+    \centering
+    \includegraphics[height=5cm]{../FIGURE/analysis/GSOwaveform.png}
+    \caption{GSO(Ce)シンチレーションカウンタによる波形の例}
+    \label{fig:GSOwaveform}
+  \end{minipage}
+\end{figure}
+%これずれるのなんとかならんかな？w
+
+ADCSumとエネルギーの対応については、付録\ref{exp1}で述べる。
+
+
+
+\end{document}
