@@ -1,0 +1,68 @@
+\documentclass[../../main.tex]{subfiles}
+\usepackage{amsmath,amsthm,amsfonts,latexsym,mathtools,bm,ulem,amssymb,tikz,circuitikz,graphicx}
+\usepackage{times}
+\usepackage[subrefformat=parens]{subcaption}
+\usepackage{here}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{mhchem}
+\usepackage{upgreek}%ギリシャ文字を立てるのだ
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\usepackage{wrapfig}%文中に画像を入れる
+\begin{document}
+\section{実験機器・原理}
+  % 今回の実験で使用した実験機器について、新しく学んだことをまとめる。光電子増倍管と、その信号を処理する電気回路について述べる。
+	% \subsection{光電子増倍管}
+  %   高電圧を印加した光電子増倍管にパルス光が入射すると、光子数に概ね比例した電荷量のパルス信号を出力させることができる。
+  %   \subsubsection{はたらき}
+  %     光電子増倍管は主に光電窓とダイノードからなる。光電窓に光子が入射すると光電効果によって確率的に電子がPMT内部にはじき出される。その確率を量子効率という。量子効率は光電窓の材質や光子波長に依存し、その特性はPMTのスペックシートなどに記載されている。今回の実験で使用した浜松ホトニクス製PMT『R329-02』は可視光領域では$380$ nmの波長の光子に対して最大の約$25$ \%の量子効率を持ち、波長によっては$1\sim0.1$ \%の量子効率になる。
+      
+  %     ダイノードは複数の電極の集まりで、ダイノードの間を電子が運動しダイノードに電子が衝突する際に電子数が増幅される。大まかには増幅率は、ある数をダイノードの数だけべき乗した値に比例し、今回の実験で使用した浜松ホトニクス製PMT『R329-02』は典型的に$1.1\times10^6$の増幅率(gain)を持つ。\cite{Hamamatsu:r32902},\cite{Hamamatsu:pmt}
+  %     \begin{itemize}
+  %       \item 浜松ホトニクス『光電子増倍管 その基礎と応用』が詳しい。(\url{https://www.hamamatsu.com/content/dam/hamamatsu-photonics/sites/documents/99_SALES_LIBRARY/etd/PMT_handbook_v4J.pdf})
+  %       \item 浜松ホトニクス製PMT、『R329-02』のスペックシートに寸法や材質、増幅率特性が記載されている。(\url{https://www.hamamatsu.com/content/dam/hamamatsu-photonics/sites/documents/99_SALES_LIBRARY/etd/R329-02_TPMH1254E.pdf})
+  %     \end{itemize}
+  %   \subsubsection{特徴}
+  %     光子の数を増幅して電気信号として取り出す増幅装置は光電子増倍管以外にもあるが、ここでは光電子増倍管の特徴を述べる。
+  %     \begin{itemize}
+  %       \item 光電子増倍管は印加電圧に対して指数的に増幅率が増加する。その特性はPMTのスペックシートなどに記載されている。
+  %       \item 光電子増倍管はその内部で電子を適切に運動させる必要があるために、外部磁場の影響を受けて動作不良を起こす可能性がある。
+  %       \item また、ある動作に温度依存性がある。光電窓からは熱的に揺らいだ電子が自発的に放出されて増幅された結果パルス信号を生む事象が起こる。これは暗電流と呼ばれ、温度によく依存するが典型的に$10^5$ \si{\per\second}個の電子が光電窓から放出される。今回の実験で使用した浜松ホトニクス製PMTR329-02』は典型的に$10^1$ \si{\nano\ampere}の暗電流を生む。
+  %       \item 光電子増倍管にはアフターパルスと呼ばれる偽のパルス事象が起こる。例えば放射線がシンチレーターを発光させたパルスを観測したとすると、このパルスのだいたい$100\,\,\si{\nano\second}\,-\,1\,\,\si{\micro\second}$あとの間に決まってパルスが出力されることがある。光電子増倍管内の残留ガスと運動している電子との衝突によって生じたイオンが光電窓に戻ったときにまた電子が放出されることが原因であると言われている。
+  %       \begin{itemize}
+  %         \item[$\Rightarrow$] 今回の実験で用いた浜松ホトニクス製PMT『R329-02』のアフターパルスの傾向を図\ref{fig:afterpulse}に示した。$-1800$ Vの高電圧を印加し、シンチレーターが宇宙線を捉えたときの波形を重ね書きしたものである。
+  %       \end{itemize}
+  %       \begin{figure}[H]
+  %         \centering
+  %         % \includegraphics[width=0.9\columnwidth]{../../../figure/waveformall.png}
+  %         \caption{アフターパルスの傾向。トリガーがかかった(時刻$0\times10^{-6}$ s)あとの$0.5\,-\,0.6$\,$\times10^{-6}$ s後に明らかに相関のあるパルスが見られている。}\label{fig:afterpulse}
+  %       \end{figure}
+  %     \end{itemize}
+  % \subsection{電気回路・NIMモジュール}
+  %   今回の実験では宇宙線ミューオン由来のPMTからの信号を電気回路を用いて処理した。主にNIMモジュールを使用した。
+  %   \subsubsection{ディスクリミネータ}
+  %     ディスクリミネータ回路はアナログ入力の波高に応じて電圧high/lowの論理パルスを出力する。事前に設定した波高を超えるものが入力されたときだけ特定時間幅の論理パルスを出力する。NIMモジュールでは規格により$-0.8$ Vの論理パルスを出力する。
+  %   \subsubsection{コインシデンス}
+  %     コインシデンス回路は2つの論理入力のANDを取った論理パルスを出力する。
+  %   \subsubsection{スケーラ}
+  %     スケーラ回路は入力論理信号の回数を数える。
+  \subsection{無機シンチレータ}
+    %GSOシンチレータとNaIシンチレータの選定について書きたい。$\upgamma$線の断面積が大きいことを重視したこと、他の大学ではプラシンを使ってるところもあったけど、それには意味があったことなどを考察しておきたい。
+    本節ではシンチレータの動作原理と選定理由について述べる。
+
+    電離性放射線が通過した際に螢光（scintillation）を発生する物質をシンチレータ（scintillator）という。シンチレータには気体、液体、固体のものがあるが、本実験では固体の無機結晶からなるシンチレータを用いた。以後これを無機シンチレータという。シンチレータの光量は極めて微量であり、増幅して初めてパルスとして記録できる。本実験では光電子増倍管（PMT）を用いてシンチレーション光の増幅を行った。
+
+    本実験では、$\upgamma$線カウンターとして NaI(Tl)およびGSO(Ce)の2種類の無機シンチレータを使用した。括弧内は含まれる活性化物質であり、活性化物質に起因する電子、正孔がエネルギーの授受を行うことで発光する。シンチレータでコンプトン散乱させた$\upgamma$線を再度別のシンチレータで捉えるため、できるだけ大きく高密度な結晶を選定した。
+
+
+    \subsubsection{NaIシンチレータ}
+    NaI(Tl)は$\upgamma$線検出によく用いられるシンチレータである。
+    直径$\SI{0.75}{\meter}$,厚さ$\SI{0.25}{\meter}$までの単結晶が作られる。$\SI{3.67e3}{\kilogram\per\cubic\meter}$の密度をもつため、大体積の結晶では非常に高い効率をもつ$\upgamma$線検出器となる。6-7 \%の良いエネルギー分解能をもつ。
+    NaI(Tl)シンチレータの発光スペクトルは$\SI{410}{\nano\meter}$にピークを示し、その光変換効率は無機シンチレータの中で最大である。発光減衰時間が$\SI{230}{\nano\second}$である。割れやすく、温度勾配に弱いというデメリットもある。結晶中に微量の$\text{K}$を含むため放射線核種$^{40}\text{K}$によるバックグラウンド計数を示す。
+
+    \subsubsection{GSOシンチレータ}
+    GSO(Ce)は$\upgamma$線検出によく用いられるシンチレータである。$\SI{6.70e3}{\kilogram\per\cubic\meter}$という高い密度とカスタム可能な大きさから、高い反応率が特徴である。7-11 \%の良いエネルギー分解能をもつ。
+    GSO(Ce)シンチレータの発光スペクトルは$\SI{430}{\nano\meter}$にピークを示し、発光減衰時間は$\SI{60}{\nano\second}$と短い。Gdによる自己放射があり、低エネルギー帯のバックグラウンド測定には不向きである。
+\end{document}
