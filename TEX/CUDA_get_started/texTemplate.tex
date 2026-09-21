@@ -11,7 +11,31 @@ left=20truemm,right=20truemm]{geometry}
 \usepackage{fancyhdr}
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
+\usepackage{url}
 \pagestyle{fancy}
+
+\usepackage{listings,jvlisting}
+%ここからソースコードの表示に関する設定
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
+%ここまでソースコードの表示に関する設定
+
 
 %%%%%%%%% header %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -47,8 +71,44 @@ left=20truemm,right=20truemm]{geometry}
   \begin{itemize}
     \item 統合データキャッシュ -> (共有メモリ, L1キャッシュ)への割り当ては実行時に設定できる
   \end{itemize}
+  \item カーネル(GPU上で実行される関数)はスレッドと呼ばれる単位で計算を行う
+  \begin{itemize}
+    \item スレッドをまとめたものをスレッドブロックという
+    \item スレッドブロックをまとめたものをグリッドという
+    \begin{itemize}
+      \item それぞれのまとめ方は1,2,3次元
+      \item 同じグリッド内のブロックの形(次元数)は同じ
+    \end{itemize}
+    \item こうしてたくさん名称があるのは、処理したいデータ項目とスレッドを対応付けやするため(実装の都合の、仮想的な概念か?)
+  \end{itemize}
+  \item 同じスレッドブロックに存在するスレッドは同じSMで実行される
+  \begin{itemize}
+    \item パフォーマンス面で言うと、同じ物理的なメモリを共有することが効く
+    \item communicateやsynchronizeが有利
+    \item 逆に、異なるスレッドブロックの間のデータのやり取りはオーバーヘッドが大きいことに注意すべし
+  \end{itemize}
 \end{itemize}
 
+\subsubsection*{参考}
+\begin{itemize}
+  \item Kazuki Fujii, CUDA Programming Guide Part 1
+  \begin{itemize}
+    \item \url{https://zenn.dev/kaz20/articles/1e622ef249d133}
+  \end{itemize}
+  \item Nvidia, CUDA Programming Guide
+  \begin{itemize}
+    \item \url{https://docs.nvidia.com/cuda/cuda-programming-guide/index.html}
+  \end{itemize}
+\end{itemize}
+
+
+\begin{lstlisting}[caption=How to build CUDA program,label=fuga]
+satsuki@satsuki-desktop:~/local/nvidia/cuda-samples/cpp/0_Introduction/vectorAdd$ mkdir build
+satsuki@satsuki-desktop:~/local/nvidia/cuda-samples/cpp/0_Introduction/vectorAdd$ cmake -S ./ -B ./build/ -DCMAKE_CUDA_ARCHITECTURES=86
+satsuki@satsuki-desktop:~/local/nvidia/cuda-samples/cpp/0_Introduction/vectorAdd$ ./build/  
+satsuki@satsuki-desktop:~/local/nvidia/cuda-samples/cpp/0_Introduction/vectorAdd$ ./build/vectorAdd 
+Unified Memory: CPU and GPU answers match
+\end{lstlisting}
 
 \begin{figure}[tbhp]
   \centering
