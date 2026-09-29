@@ -12,6 +12,7 @@ left=20truemm,right=20truemm]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
 \usepackage{url}
+\usepackage[T1]{fontenc}
 \pagestyle{fancy}
 
 \usepackage{listings,jvlisting}
@@ -69,9 +70,9 @@ left=20truemm,right=20truemm]{geometry}
   \item SMはa local register fileとa unified data cacheと計算を行なう多数の機能ユニットを持つ
   \item 統合データキャッシュは共有メモリとL1キャッシュの実体である
   \begin{itemize}
-    \item 統合データキャッシュ -> (共有メモリ, L1キャッシュ)への割り当ては実行時に設定できる
+    \item 統合データキャッシュ $\rightarrow$ (共有メモリ, L1キャッシュ)への割り当ては実行時に設定できる
   \end{itemize}
-  \item カーネル(GPU上で実行される関数)はスレッドと呼ばれる単位で計算を行う
+  \item カーネル(GPU上で実行される関数)はスレッドと呼ばれる単位で計算を行う(1スレッドが1CUDAコアに対応?)
   \begin{itemize}
     \item スレッドをまとめたものをスレッドブロックという
     \item スレッドブロックをまとめたものをグリッドという
@@ -83,10 +84,24 @@ left=20truemm,right=20truemm]{geometry}
   \end{itemize}
   \item 同じスレッドブロックに存在するスレッドは同じSMで実行される
   \begin{itemize}
-    \item パフォーマンス面で言うと、同じ物理的なメモリを共有することが効く
+    \item あるスレッドブロック内のスレッドは共有メモリを介してデータのやり取りが可能
     \item communicateやsynchronizeが有利
     \item 逆に、異なるスレッドブロックの間のデータのやり取りはオーバーヘッドが大きいことに注意すべし
   \end{itemize}
+  \item カーネルで実行される関数は必ずvoid
+  \begin{lstlisting}[caption=Kernel function,label=kernelFunction]
+    __global__ void vecAdd(float* A, float* B, float* C)
+    {
+
+    }
+  \end{lstlisting}
+  \begin{itemize}
+    \item カーネルでの計算結果は必ずカーネルに渡したポインタのアドレスに対する変更として使う
+  \end{itemize}
+  \item 実行構成(execution configuration)で並列実行するスレッド数を指定できる
+  \begin{lstlisting}[caption= Execution Configuration,label=kernelFunction]
+    vecAdd<<1, 256>>(A, B, C);
+  \end{lstlisting}
 \end{itemize}
 
 \subsubsection*{参考}
