@@ -12,7 +12,11 @@ left=20truemm,right=20truemm]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
 \usepackage{url}
-\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc} % 文字コードの不具合に効く
+\usepackage{lmodern} % 組版の見た目に効く
+% \usepackage{float} % ページを跨げないオブジェクトを作れる
+\usepackage{here}
+\usepackage{needspace}
 \pagestyle{fancy}
 
 \usepackage{listings,jvlisting}
@@ -62,17 +66,17 @@ left=20truemm,right=20truemm]{geometry}
 \vspace{10pt}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection*{CUDA Programming Guide}
+\subsubsection*{CUDA Programming Guide読むメモ}
 \begin{itemize}
   \item CPU/GPUをホスト/デバイスと呼び分けている
   \item CUDA APIを通してホストメモリからデバイスメモリにデータをコピーすることができる
   \item Graphics Processing Clusters(GPCs)はStreaming Multiprocessors(SMs)の集まり
-  \item SMはa local register fileとa unified data cacheと計算を行なう多数の機能ユニットを持つ
+  \item SMはa local register fileと統合データキャッシュ(a unified data cache)と計算を行なう多数の機能ユニットを持つ
   \item 統合データキャッシュは共有メモリとL1キャッシュの実体である
   \begin{itemize}
     \item 統合データキャッシュ $\rightarrow$ (共有メモリ, L1キャッシュ)への割り当ては実行時に設定できる
   \end{itemize}
-  \item カーネル(GPU上で実行される関数)はスレッドと呼ばれる単位で計算を行う(1スレッドが1CUDAコアに対応?)
+  \item カーネル(GPU上で実行される関数)はスレッドと呼ばれる単位で計算を行う(1スレッドが1CUDAコアに対応ってことか)
   \begin{itemize}
     \item スレッドをまとめたものをスレッドブロックという
     \item スレッドブロックをまとめたものをグリッドという
@@ -80,7 +84,10 @@ left=20truemm,right=20truemm]{geometry}
       \item それぞれのまとめ方は1,2,3次元
       \item 同じグリッド内のブロックの形(次元数)は同じ
     \end{itemize}
-    \item こうしてたくさん名称があるのは、処理したいデータ項目とスレッドを対応付けやするため(実装の都合の、仮想的な概念か?)
+    \item \emph{ホストは「カーネルをいくつ起動させるか」のみ指定する。カーネルは「自分のIDを確認して、そのIDから処理すべきデータを知る」}
+    \begin{itemize}
+      \item ホストは個々のカーネルに別個のデータを渡すことはせず、塊ごと渡してカーネルが自分の仕事を探すイメージ
+    \end{itemize}
   \end{itemize}
   \item 同じスレッドブロックに存在するスレッドは同じSMで実行される
   \begin{itemize}
@@ -88,20 +95,66 @@ left=20truemm,right=20truemm]{geometry}
     \item communicateやsynchronizeが有利
     \item 逆に、異なるスレッドブロックの間のデータのやり取りはオーバーヘッドが大きいことに注意すべし
   \end{itemize}
-  \item カーネルで実行される関数は必ずvoid
-  \begin{lstlisting}[caption=Kernel function,label=kernelFunction]
-    __global__ void vecAdd(float* A, float* B, float* C)
-    {
-
-    }
+  \item カーネルの関数呼び出しはホストコードで逐次処理するが、カーネルでの関数実行自体は基本的に非同期処理である。もしも待つならホスト側で同期(GPUに終わったか聞くってことだと思う)をする必要がある。
+  \Needspace{5\baselineskip}
+  \begin{lstlisting}[caption= host and kernel synchronize, label=hostAndKernelSynchronize]
+int main()
+{
+    ...
+    cudaDeviceSynchronize();
+    ...
+}
   \end{lstlisting}
+  \item カーネルで実行される関数は必ずvoid
   \begin{itemize}
     \item カーネルでの計算結果は必ずカーネルに渡したポインタのアドレスに対する変更として使う
   \end{itemize}
-  \item 実行構成(execution configuration)で並列実行するスレッド数を指定できる
-  \begin{lstlisting}[caption= Execution Configuration,label=kernelFunction]
-    vecAdd<<1, 256>>(A, B, C);
+  \Needspace{8\baselineskip} % 次のコードブロックがページをまたがないような措置
+  \begin{lstlisting}[caption=Kernel function,label=kernelFunction]
+__global__ void vecAdd(float* A, float* B, float* C)
+{
+
+}
   \end{lstlisting}
+  \item 実行構成(execution configuration)で並列実行するスレッド数を指定できる
+  \begin{itemize}
+    \item \lstinline|<<<, >>>|はtriple chevronと言われる書き方
+    \item 1次元の例では、グリッドのサイズとブロックのサイズ
+    \begin{itemize}
+      \item \lstinline|<<<1, 256>>>|と書くと、1つのブロックを立ち上げてその中で256個のスレッドがあるようになる
+      \begin{lstlisting}[caption= Execution Configuration,label=kernelFunction]
+vecAdd<<<1, 256>>>(A, B, C);
+      \end{lstlisting}
+      \item スレッドはSMの物理的リソースを共有するので、1つのブロックに立ち上げるスレッド数には制限がある
+    \end{itemize}
+    \item グリッドやブロックはそれぞれ1,2,3次元のインデックスをつけることができる
+    \begin{itemize}
+      \item 下の例では2次元(16x16)のグリッドにそれぞれ2次元(8x8)のブロック
+    \end{itemize}
+    \Needspace{8\baselineskip}
+    \begin{lstlisting}[caption= Dimensions of Grid and Block, label=dimensionsOfGridAndBlock]
+int main()
+{
+    ...
+    dim3 grid(16,16);
+    dim3 block(8,8);
+    MatAdd<<<grid, block>>>(A, B, C);
+    ...
+}
+    \end{lstlisting}
+
+  \end{itemize}
+  \item Index Instrinsic(インデックス組み込み関数)
+  \begin{itemize}
+    \item スレッドが自分がどのブロックのどのスレッドであるかを知るための組み込み関数
+      \item グリッド・ブロックは1,2,3次元がありえるので、以下はそれぞれ.xや.yなどでアクセスする
+      \begin{itemize}
+        \item \lstinline|gridDim| : グリッドのサイズ(Dimって書いてるけどSizeだと思っていいはず)
+        \item \lstinline|blockIdx| : ブロックのインデックス
+        \item \lstinline|blockDim| : ブロックのサイズ
+        \item \lstinline|threadIdx| : スレッドのインデックス
+      \end{itemize}
+  \end{itemize}
 \end{itemize}
 
 \subsubsection*{参考}
@@ -115,6 +168,17 @@ left=20truemm,right=20truemm]{geometry}
     \item \url{https://docs.nvidia.com/cuda/cuda-programming-guide/index.html}
   \end{itemize}
 \end{itemize}
+\subsubsection*{メモ}
+\begin{itemize}
+  \item 個人メモ
+  \begin{itemize}
+    \item \url{https://docs.google.com/document/d/1MED3dnCUg8WTK4Z0xogZCoBWp2NZrVHuxMmYLFQj8bw/edit?usp=sharing}
+  \end{itemize}
+\end{itemize}
+
+これは \lstinline|<<<| です。
+これは \lstinline|->| です。
+これは \lstinline|>>>| です。
 
 
 \begin{lstlisting}[caption=How to build CUDA program,label=fuga]
