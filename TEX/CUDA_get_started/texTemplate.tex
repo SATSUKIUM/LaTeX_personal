@@ -17,6 +17,7 @@ left=20truemm,right=20truemm]{geometry}
 % \usepackage{float} % ページを跨げないオブジェクトを作れる
 \usepackage{here}
 \usepackage{needspace}
+\usepackage{cite}
 \pagestyle{fancy}
 
 \usepackage{listings,jvlisting}
@@ -76,7 +77,8 @@ left=20truemm,right=20truemm]{geometry}
   \begin{itemize}
     \item 統合データキャッシュ $\rightarrow$ (共有メモリ, L1キャッシュ)への割り当ては実行時に設定できる
   \end{itemize}
-  \item カーネル(GPU上で実行される関数)はスレッドと呼ばれる単位で計算を行う(1スレッドが1CUDAコアに対応ってことか)
+  \item カーネル(GPU上で実行される関数)はスレッドと呼ばれる単位で計算を行う(1スレッドが1CUDAコアに対応ってことか?)
+  \item \emph{複数立ち上げたスレッドは全て同じカーネルコードを実行するが、各スレッドは自分のIDを知ることができて、それに対応したデータを処理することで並列計算を行う}
   \begin{itemize}
     \item スレッドをまとめたものをスレッドブロックという
     \item スレッドブロックをまとめたものをグリッドという
@@ -155,6 +157,32 @@ int main()
         \item \lstinline|threadIdx| : スレッドのインデックス
       \end{itemize}
   \end{itemize}
+  \item Cのメモリ管理メモ
+  \begin{itemize}
+    \item sizeof()は対象のメモリのサイズを\emph{バイト単位}で返す
+    \item malloc
+    \begin{itemize}
+      \item (型名)malloc(サイズ)でヒープにメモリを動的に確保
+      \begin{itemize}
+        \item ヒープが何かよくわかってない...
+      \end{itemize}
+      \begin{lstlisting}[caption= Dynamic memory allocation, label=dynamicMemoryAllocation]
+int* p1 = (int*)malloc(sizeof(int));
+      \end{lstlisting}
+    \end{itemize}
+    \item free
+    \begin{itemize}
+      \item free(変数名)でヒープに確保したメモリを解放
+      \begin{lstlisting}[caption= Dynamic memory allocation, label=dynamicMemoryAllocation]
+free(p1);
+      \end{lstlisting}
+    \end{itemize}
+  \end{itemize}
+  \item 複数のスレッドが同じカーネルコードを実行するが、命令の分岐をしてもよい。しかしながら、同じwarpに存在するスレッドがなるべく同じコードパスを通るようにするとかなりパフォーマンスが改善するらしい
+  \item 多次元のスレッドブロックやグリッドを使うのは便宜上の理由だけで、パフォーマンスには影響しない
+  \begin{itemize}
+    \item The use of multi-dimensional thread blocks and grids is for convenience only and does not affect performance. 
+  \end{itemize}
 \end{itemize}
 
 \subsubsection*{参考}
@@ -168,6 +196,8 @@ int main()
     \item \url{https://docs.nvidia.com/cuda/cuda-programming-guide/index.html}
   \end{itemize}
 \end{itemize}
+
+
 \subsubsection*{メモ}
 \begin{itemize}
   \item 個人メモ
