@@ -49,7 +49,6 @@ left=20truemm,right=20truemm]{geometry}
 \fancyhf{}
 \setlength{\headheight}{60pt}   % ある程度大きめに
 \fancyhead[R]{大阪大学大学院 理学研究科 物理学専攻 博士前期課程2年\\
-学籍番号 24B25011\\
 加島 駿一\\}
 
 \setlength{\footskip}{20pt}
@@ -179,9 +178,28 @@ free(p1);
     \end{itemize}
   \end{itemize}
   \item 複数のスレッドが同じカーネルコードを実行するが、命令の分岐をしてもよい。しかしながら、同じwarpに存在するスレッドがなるべく同じコードパスを通るようにするとかなりパフォーマンスが改善するらしい
+  \begin{itemize}
+    \item 複数次元のスレッドは以下のスレッドIDの計算式でliniarizedされて、その連続した32スレッドがwarpを構成する
+    \begin{align}
+      \text{linear id} = x+yN_x+zN_xN_y
+    \end{align}
+  \end{itemize}
   \item 多次元のスレッドブロックやグリッドを使うのは便宜上の理由だけで、パフォーマンスには影響しない
   \begin{itemize}
-    \item The use of multi-dimensional thread blocks and grids is for convenience only and does not affect performance. 
+    \item \textit{The use of multi-dimensional thread blocks and grids is for convenience only and does not affect performance.}
+  \end{itemize}
+  \item スレッドブロック内のスレッドが協調したり、同じメモリ(共有メモリ)にアクセスする場合は、スレッドブロック内のスレッドを同期させなきゃいけない
+  \begin{itemize}
+    \item \lstinline|syncthreads()|
+  \end{itemize}
+  \item メモリの種類
+  \begin{itemize}
+    \item グローバルメモリ(デバイスメモリ)
+    \begin{itemize}
+      \item カーネルの全てのスレッドからアクセス可能
+      \item \lstinline|cudaMalloc()|とか\lstinline|cudaMallocManaged()|でグローバルメモリに確保したり、CPUから\lstinline|cudaMemcpy()|でコピーしたり、\lstinline|cudaFree()|で解放したりするアレだ
+    \end{itemize}
+    \item 
   \end{itemize}
 \end{itemize}
 
@@ -222,7 +240,7 @@ Unified Memory: CPU and GPU answers match
 \begin{figure}[tbhp]
   \centering
   \includegraphics[width=0.8\textwidth]{./PICTURE/beam_structure.png}
-  \caption{J-PARC ハドロン実験施設に供給されるビームの時間的な構造の例。約2秒の間、加速器施設のメインリングから徐々にビームを取り出すSlow extractionと呼ばれる方式でビームを検出器に照射している。横軸は時間で、縦軸は検出器のカウントレートである。}
+  \caption{画像挿入テスト}
   \label{fig:beam_structure}
 \end{figure}
 
