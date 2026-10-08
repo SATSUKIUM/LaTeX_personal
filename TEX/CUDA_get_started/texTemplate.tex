@@ -87,6 +87,19 @@ left=20truemm,right=20truemm]{geometry}
     \item communicateやsynchronizeが有利
     \item 逆に、異なるスレッドブロックの間のデータのやり取りはオーバーヘッドが大きいことに注意すべし
   \end{itemize}
+  \item ビット演算のORばっかりなのになんでatomicOr()が必要なのか
+  \begin{itemize}
+    \item 直感的にはOR演算が競合しても順不同だからatomicOr()が必要ないように思えるが、そもそも\lstinline|\=|が不可分な3つの操作のセットだから
+    \item read-modify-writeと他のread-modify-writeのタイミングが競合すると、lost-updateが起きてしまう
+    \begin{itemize}
+      \item 2つのmodifyのうち、片方はあとからくるwriteによって上書きされてしまう
+    \end{itemize}
+    \begin{lstlisting}
+tmp = data[i];       // load
+tmp = tmp | mask;    // OR
+data[i] = tmp;       // store
+    \end{lstlisting}
+  \end{itemize}
 \end{itemize}
 
 \subsubsection*{参考}
