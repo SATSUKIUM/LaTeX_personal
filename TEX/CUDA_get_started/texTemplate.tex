@@ -108,6 +108,7 @@ tmp = data[i];       // load
 tmp = tmp | mask;    // OR
 data[i] = tmp;       // store
     \end{lstlisting}
+  \end{itemize}
   \item カーネルの関数呼び出しはホストコードで逐次処理するが、カーネルでの関数実行自体は基本的に非同期処理である。もしも待つならホスト側で同期(GPUに終わったか聞くってことだと思う)をする必要がある。
   \Needspace{5\baselineskip}
   \begin{lstlisting}[caption= host and kernel synchronize, label=hostAndKernelSynchronize]
