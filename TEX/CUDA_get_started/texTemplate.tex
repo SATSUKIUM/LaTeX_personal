@@ -96,19 +96,6 @@ left=20truemm,right=20truemm]{geometry}
     \item communicateやsynchronizeが有利
     \item 逆に、異なるスレッドブロックの間のデータのやり取りはオーバーヘッドが大きいことに注意すべし
   \end{itemize}
-  \item ビット演算のORばっかりなのになんでatomicOr()が必要なのか
-  \begin{itemize}
-    \item 直感的にはOR演算が競合しても順不同だからatomicOr()が必要ないように思えるが、そもそも\lstinline|\=|が不可分な3つの操作のセットだから
-    \item read-modify-writeと他のread-modify-writeのタイミングが競合すると、lost-updateが起きてしまう
-    \begin{itemize}
-      \item 2つのmodifyのうち、片方はあとからくるwriteによって上書きされてしまう
-    \end{itemize}
-    \begin{lstlisting}
-tmp = data[i];       // load
-tmp = tmp | mask;    // OR
-data[i] = tmp;       // store
-    \end{lstlisting}
-  \end{itemize}
   \item カーネルの関数呼び出しはホストコードで逐次処理するが、カーネルでの関数実行自体は基本的に非同期処理である。もしも待つならホスト側で同期(GPUに終わったか聞くってことだと思う)をする必要がある。
   \Needspace{5\baselineskip}
   \begin{lstlisting}[caption= host and kernel synchronize, label=hostAndKernelSynchronize]
@@ -213,6 +200,19 @@ free(p1);
       \item \lstinline|cudaMalloc()|とか\lstinline|cudaMallocManaged()|でグローバルメモリに確保したり、CPUから\lstinline|cudaMemcpy()|でコピーしたり、\lstinline|cudaFree()|で解放したりするアレだ
     \end{itemize}
     \item 
+  \end{itemize}
+    \item ビット演算のORばっかりなのになんでatomicOr()が必要なのか
+  \begin{itemize}
+    \item 直感的にはOR演算が競合しても順不同だからatomicOr()が必要ないように思えるが、そもそも\lstinline|\=|が不可分な3つの操作のセットだから
+    \item read-modify-writeと他のread-modify-writeのタイミングが競合すると、lost-updateが起きてしまう
+    \begin{itemize}
+      \item 2つのmodifyのうち、片方はあとからくるwriteによって上書きされてしまう
+    \end{itemize}
+    \begin{lstlisting}[caption=内部処理の順番,label=internalProcessOrder]
+tmp = data[i];       // load
+tmp = tmp | mask;    // OR
+data[i] = tmp;       // store
+    \end{lstlisting}
   \end{itemize}
 \end{itemize}
 
