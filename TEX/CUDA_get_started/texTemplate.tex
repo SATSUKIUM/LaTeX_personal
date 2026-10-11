@@ -213,6 +213,7 @@ tmp = data[i];       // load
 tmp = tmp | mask;    // OR
 data[i] = tmp;       // store
     \end{lstlisting}
+    \item 競合が起きなかったらatomicOr()を使う必要はまったくないということか...?
   \end{itemize}
 \end{itemize}
 
