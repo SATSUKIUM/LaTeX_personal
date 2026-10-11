@@ -214,6 +214,20 @@ tmp = tmp | mask;    // OR
 data[i] = tmp;       // store
     \end{lstlisting}
   \end{itemize}
+  \item 配列から条件を満たすものを抽出する
+  \begin{itemize}
+    \item 2段回の処理をする
+    \begin{itemize}
+      \item 1段階目
+      \item もとの配列と同じサイズのintの配列を用意する
+      \item もとの配列の各要素が条件を満たす場合、対応する場所に1を書き込む(atomicOrで書き込む必要があるかどうか後で確認)
+      \item 2段回目
+      \item その配列をprefix-sumにかける
+      \begin{itemize}
+        \item exclusive scanでiより前にいくつ1があったか、という情報に変える
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
 \end{itemize}
 
 \subsubsection*{参考}
@@ -235,6 +249,12 @@ data[i] = tmp;       // store
   \begin{itemize}
     \item \url{https://docs.google.com/document/d/1MED3dnCUg8WTK4Z0xogZCoBWp2NZrVHuxMmYLFQj8bw/edit?usp=sharing}
   \end{itemize}
+  \item cuda/thrustライブラリ
+  \begin{lstlisting}
+kashima@kashima-WRT-WX9:~/GitHub/cuda_test$ ls /usr/include/thrust
+  addressof.h            device_delete.h            equal.h             host_vector.h    partition.h            set_operations.h    type_traits adjacent_difference.h  device_free.h              event.h             inner_product.h  per_device_resource.h  shuffle.h           uninitialized_copy.h advance.h              device_make_unique.h       execution_policy.h  iterator         random                 sort.h              uninitialized_fill.h allocate_unique.h      device_malloc.h            extrema.h           limits.h         random.h               swap.h              unique.h async                  device_malloc_allocator.h  fill.h              logical.h        reduce.h               system              universal_allocator.h binary_search.h        device_new.h               find.h              memory.h         remove.h               system_error.h      universal_ptr.h complex.h              device_new_allocator.h     for_each.h          merge.h          replace.h              tabulate.h          universal_vector.h copy.h                 device_ptr.h               functional.h        mismatch.h       reverse.h              transform.h         version.h count.h                device_reference.h         future.h            mr               scan.h                 transform_reduce.h  zip_function.h detail                 device_vector.h            gather.h            optional.h       scatter.h              transform_scan.h device_allocator.h     distance.h                 generate.h          pair.h           sequence.h             tuple.h
+kashima@kashima-WRT-WX9:~/GitHub/cuda_test$ 
+  \end{lstlisting}
 \end{itemize}
 
 これは \lstinline|<<<| です。
